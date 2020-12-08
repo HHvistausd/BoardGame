@@ -3,12 +3,11 @@ package boardgame;
 import java.awt.*;
 
 public class Board {
-    private final static int NUM_ROWS = 16;
-    private final static int NUM_COLUMNS = 16;      
+    private final static int NUM_ROWS = 24;
+    private final static int NUM_COLUMNS = 24;      
     private static Piece board[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
     
     public static void Reset() {
-//Clear the board.
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
                 board[zrow][zcol] = null;  
@@ -19,7 +18,7 @@ public class Board {
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
 
-//Draw the grid.        
+
         g.setColor(Color.black);
         for (int zi = 1;zi<NUM_ROWS;zi++)
         {
