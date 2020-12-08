@@ -85,7 +85,7 @@ public class BoardGame extends JFrame implements Runnable {
         }
 //fill background
         
-        g.setColor(Color.cyan);
+        g.setColor(Color.red);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 
         int x[] = {Window.getX(0), Window.getX(Window.getWidth2()), Window.getX(Window.getWidth2()), Window.getX(0), Window.getX(0)};
