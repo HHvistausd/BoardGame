@@ -3,9 +3,9 @@ package boardgame;
 import java.awt.*;
 
 public class Board {
-    private final static int NUM_ROWS = 16;
-    private final static int NUM_COLUMNS = 16;      
-    private static Piece board[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
+    private final static int NUM_ROWS = 24;
+    private final static int NUM_COLUMNS = 24;      
+    private static Tile board[][] = new Tile[NUM_ROWS][NUM_COLUMNS];
     
     public static void Reset() {
 //Clear the board.
