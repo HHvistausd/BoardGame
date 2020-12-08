@@ -5,7 +5,9 @@ import java.awt.*;
 public class Board {
     private final static int NUM_ROWS = 24;
     private final static int NUM_COLUMNS = 24;      
-    private static Piece board[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
+
+    private static Tile board[][] = new Tile[NUM_ROWS][NUM_COLUMNS];
+
     
     public static void Reset() {
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
