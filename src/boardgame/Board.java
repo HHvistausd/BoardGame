@@ -58,7 +58,8 @@ public class Board {
         int row2 = ypixel/ydelta;   
 
 
-        board2[row2][column2] = new Piece(Player.GetCurrentPlayer().getColor());
+        board[row2][column2] = new Pawn(Player.GetCurrentPlayer().getColor());
+        
         
         
         

@@ -6,10 +6,14 @@ import java.awt.Color;
 public class Player {
     
     
-    private static Player currentTurn;
+    public static Player currentTurn;
     private static Player players[] = new Player[2];
     private Color color;    
-
+    public int pawns = 10;
+    public int walls = 20;
+    
+    
+    
     public static void Reset()
     {
         players[0] = new Player(Color.red);
@@ -37,5 +41,11 @@ public class Player {
         return (color);
     }
 
+    public void placePawn (int x, int y) {
+        if (pawns > 0) {
+            pawns--;
+            Board.AddPawnPiece(x, y);
+        }
+    }
         
 }
