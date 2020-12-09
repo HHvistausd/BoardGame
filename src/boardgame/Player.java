@@ -1,17 +1,19 @@
 
 package boardgame;
 
+import java.awt.Color;
+
 public class Player {
     
     
     private static Player currentTurn;
     private static Player players[] = new Player[2];
-    private Tile.Shape shape;    
+    private Color color;    
 
     public static void Reset()
     {
-        players[0] = new Player(Tile.Shape.CIRCLE);
-        players[1] = new Player(Tile.Shape.TRIANGLE);
+        players[0] = new Player(Color.red);
+        players[1] = new Player(Color.blue);
         currentTurn = players[0];
     }
     public static Player GetCurrentPlayer()
@@ -26,13 +28,13 @@ public class Player {
             currentTurn = players[0];
     }    
     
-    Player(Tile.Shape _shape)
+    Player(Color _color)
     {
-        shape = _shape;
+        color = _color;
     }
-    public Tile.Shape getShape()
+    public Color getColor()
     {
-        return (shape);
+        return (color);
     }
 
         

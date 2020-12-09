@@ -4,27 +4,24 @@ package boardgame;
 import java.awt.*;
 
 public class Tile {
-    public enum Shape {CIRCLE,TRIANGLE};
-    private Shape shape;
+    
     private Color color;
-
-    Tile(Shape _shape)
+    
+    Tile(Color _color)
     {
-        shape = _shape;        
-
+        color = _color;        
     }
     public Color getColor()
     {
         return (color);
     }
-    public Shape getShape()
-    {
-        return (shape);
-    }
+    
 
     public void draw(Graphics2D g,int row,int column,int xdelta,int ydelta) {
-        g.setColor(Color.GRAY);
+        g.setColor(color);
         g.fillOval(Window.getX(column*xdelta), Window.getY(row*ydelta), xdelta, ydelta);
-       
+        g.setColor(Color.white);
+        g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,15));
+        g.drawString("WALL",Window.getX(column*xdelta),Window.getY(row*ydelta)+25);
 }
 }
