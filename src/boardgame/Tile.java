@@ -1,14 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package boardgame;
 
-/**
- *
- * @author thebl
- */
+import java.awt.*;
+
 public class Tile {
-    
+    public enum Shape {CIRCLE,TRIANGLE};
+    private Shape shape;
+    private Color color;
+
+    Tile(Shape _shape)
+    {
+        shape = _shape;        
+
+    }
+    public Color getColor()
+    {
+        return (color);
+    }
+    public Shape getShape()
+    {
+        return (shape);
+    }
+
+    public void draw(Graphics2D g,int row,int column,int xdelta,int ydelta) {
+        g.setColor(Color.GRAY);
+        g.fillOval(Window.getX(column*xdelta), Window.getY(row*ydelta), xdelta, ydelta);
+       
+}
 }

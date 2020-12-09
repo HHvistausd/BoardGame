@@ -24,7 +24,9 @@ public class BoardGame extends JFrame implements Runnable {
             public void mousePressed(MouseEvent e) {
 
                 if (e.BUTTON1 == e.getButton() ) {
-                    
+                    int x = e.getX() - Window.getX(0);
+                    int y = e.getY() - Window.getY(0);
+                    Board.AddWallPiece(x,y);
                 }
 
                 if (e.BUTTON3 == e.getButton()) {
@@ -84,8 +86,8 @@ public class BoardGame extends JFrame implements Runnable {
                     RenderingHints.VALUE_ANTIALIAS_ON);
         }
 //fill background
-        
-        g.setColor(Color.red);
+        Color darkred = new Color(170,0,0);
+        g.setColor(Color.black);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 
         int x[] = {Window.getX(0), Window.getX(Window.getWidth2()), Window.getX(Window.getWidth2()), Window.getX(0), Window.getX(0)};
