@@ -57,8 +57,9 @@ public class Board {
         int column2 = xpixel/xdelta;   
         int row2 = ypixel/ydelta;   
         
-        Pawn pawn = new Pawn(Player.GetCurrentPlayer().getColor());
-
+        Pawn pawn = new Pawn();
+        
+        board[row2][column2] = new Tile(Player.GetCurrentPlayer().getColor());
         board[row2][column2] = pawn;
         board[row2][column2].pPoint = pawn;
         
