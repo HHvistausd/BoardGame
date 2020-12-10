@@ -14,17 +14,13 @@ import java.awt.Graphics2D;
  * @author thebl
  */
 public class Pawn extends Tile {
-    Color color;
     
-    Pawn (Color _color) {
-        color = _color;
-    }
     
-    Color getPawnColor () {
-        return(color);
-    }
+    
+    
+    
     public void draw(Graphics2D g,int row,int column,int xdelta,int ydelta) {
-        g.setColor(color);
+        g.setColor(super.color);
         g.fillOval(Window.getX(column*xdelta), Window.getY(row*ydelta), xdelta, ydelta);
         g.setColor(Color.white);
         g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,15));

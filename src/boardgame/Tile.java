@@ -7,7 +7,7 @@ public class Tile {
     
     public Pawn pPoint;
     
-    private Color color;
+    public Color color;
     
     Tile(Color _color)
     {
