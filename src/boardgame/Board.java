@@ -56,10 +56,11 @@ public class Board {
 //Find the column to add the piece to.        
         int column2 = xpixel/xdelta;   
         int row2 = ypixel/ydelta;   
-
-
-        board[row2][column2] = new Pawn(Player.GetCurrentPlayer().getColor());
         
+        Pawn pawn = new Pawn(Player.GetCurrentPlayer().getColor());
+
+        board[row2][column2] = pawn;
+        board[row2][column2].pPoint = pawn;
         
         
         
@@ -92,7 +93,10 @@ public class Board {
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)        
             {
                 if (board[zrow][zcol] != null)
-                    board[zrow][zcol].draw(g, zrow, zcol,xdelta, ydelta);
+                    if (board[zrow][zcol].pPoint != null) {
+                        board[zrow][zcol].pPoint.draw(g, zrow, zcol,xdelta, ydelta);
+                    }
+                    
             }
         }         
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
