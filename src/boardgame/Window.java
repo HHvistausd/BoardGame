@@ -44,7 +44,10 @@ public class Window {
     public static int getWidth2() {
         return (xsize - 2 * (XBORDER + WINDOW_BORDER));
     }
-
+     public static int getHeight() {
+//        return (ysize - 2 * YBORDER - WINDOW_BORDER - YTITLE);
+        return (Window.getHeight2()-Window.getHeight2());
+    }    
     public static int getHeight2() {
 //        return (ysize - 2 * YBORDER - WINDOW_BORDER - YTITLE);
         return (ysize - (BOTTOM_BORDER + TOP_BORDER) - WINDOW_BORDER - YTITLE);

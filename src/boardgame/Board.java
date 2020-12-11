@@ -6,7 +6,7 @@ public class Board {
     private final static int NUM_ROWS = 25;
     private final static int NUM_COLUMNS = 25;      
     private static Tile board[][] = new Tile[NUM_ROWS][NUM_COLUMNS];
-    private static Piece board2[][] = new Piece[NUM_ROWS][NUM_COLUMNS];
+    
     
     public static void Reset() {
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
@@ -33,8 +33,11 @@ public class Board {
         int column = xpixel/xdelta;   
         int row = ypixel/ydelta;   
 
+        Piece piece = new Piece();
 
         board[row][column] = new Tile(Player.GetCurrentPlayer().getColor());
+        board[row][column] = piece;
+        board[row][column].piPoint = piece;
         
         Player.SwitchTurn();
     }
@@ -72,7 +75,9 @@ public class Board {
     public static void Draw(Graphics2D g) {
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
-
+        
+        
+        int fontSize = 20;
 
         g.setColor(Color.black);
         for (int zi = 1;zi<NUM_ROWS;zi++)
@@ -88,7 +93,7 @@ public class Board {
         }
         
         
-        
+        //drawing pawns
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
         {
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)        
@@ -99,15 +104,35 @@ public class Board {
                     }
                     
             }
-        }         
+        }    
+        //drawing walls (pieces)
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
         {
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)        
             {
-                if (board2[zrow][zcol] != null)
-                    board2[zrow][zcol].draw(g, zrow, zcol,xdelta, ydelta);
+                 if (board[zrow][zcol] != null)
+                    if (board[zrow][zcol].piPoint != null) {
+                        board[zrow][zcol].piPoint.draw(g, zrow, zcol,xdelta, ydelta);
+                    }
             }
         }
+        //////////Showing whose turn it is
+        g.setColor(Color.white);
+        g.fillRect(Window.getWidth2()/2-85, Window.getHeight()+30, 200, 20);
+        
+        if(Player.GetCurrentPlayer().getColor() == Color.RED) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
+            g.drawString("RED PLAYER'S TURN",Window.getWidth2()/2-fontSize*4,Window.getHeight()+50);
+        }
+        else {
+            g.setColor(Color.BLUE);
+            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
+            g.drawString("BLUE PLAYER'S TURN",Window.getWidth2()/2-fontSize*4,Window.getHeight()+50);
+        }
+        
+        //////////////////////////////////
+        
     }
     
     

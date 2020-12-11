@@ -32,7 +32,7 @@ public class BoardGame extends JFrame implements Runnable {
                 if (e.BUTTON3 == e.getButton()) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    Board.AddWallPiece(x,y);
+                    Player.GetCurrentPlayer().placePiece(x,y);
                 }
 
                 repaint();

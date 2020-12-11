@@ -6,6 +6,7 @@ import java.awt.*;
 public class Tile {
     
     public Pawn pPoint;
+    public Piece piPoint;
     
     public Color color;
     

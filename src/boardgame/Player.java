@@ -3,6 +3,7 @@ package boardgame;
 
 import java.awt.Color;
 
+
 public class Player {
     
     
@@ -26,11 +27,14 @@ public class Player {
     }
     public static void SwitchTurn()
     {
-        if (currentTurn == players[0])
+        if (currentTurn == players[0]) 
             currentTurn = players[1];
+        
         else
             currentTurn = players[0];
-    }    
+        
+    } 
+    
     
     Player(Color _color)
     {
@@ -47,5 +51,12 @@ public class Player {
             Board.AddPawnPiece(x, y);
         }
     }
+    public void placePiece (int x, int y) {
+        if (walls > 0) {
+            walls--;
+            Board.AddWallPiece(x, y);
+        }
+    }
+    
         
 }
