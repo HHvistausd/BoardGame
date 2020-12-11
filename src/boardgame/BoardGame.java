@@ -89,7 +89,7 @@ public class BoardGame extends JFrame implements Runnable {
                     RenderingHints.VALUE_ANTIALIAS_ON);
         }
 //fill background
-        Color darkred = new Color(170,0,0);
+//        Color darkred = new Color(170,0,0);
         g.setColor(Color.black);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 

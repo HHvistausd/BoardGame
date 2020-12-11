@@ -35,11 +35,13 @@ public class Board {
 
         Piece piece = new Piece();
 
+        if(board[row][column] == null) {
         board[row][column] = new Tile(Player.GetCurrentPlayer().getColor());
         board[row][column] = piece;
         board[row][column].piPoint = piece;
-        
         Player.SwitchTurn();
+        }
+        
     }
     
     public static void AddPawnPiece(int xpixel,int ypixel) {
@@ -61,14 +63,15 @@ public class Board {
         int row2 = ypixel/ydelta;   
         
         Pawn pawn = new Pawn();
-        
+        if(board[row2][column2] == null) {
         board[row2][column2] = new Tile(Player.GetCurrentPlayer().getColor());
         board[row2][column2] = pawn;
         board[row2][column2].pPoint = pawn;
-        
-        
-        
         Player.SwitchTurn();
+        }
+        
+        
+        
     }
 //    
     
@@ -78,8 +81,9 @@ public class Board {
         
         
         int fontSize = 20;
-
-        g.setColor(Color.black);
+        
+         Color middleGrey = new Color(116,116,116);
+        g.setColor(middleGrey);
         for (int zi = 1;zi<NUM_ROWS;zi++)
         {
             g.drawLine(Window.getX(0),Window.getY(zi*ydelta),
@@ -113,6 +117,7 @@ public class Board {
                  if (board[zrow][zcol] != null)
                     if (board[zrow][zcol].piPoint != null) {
                         board[zrow][zcol].piPoint.draw(g, zrow, zcol,xdelta, ydelta);
+                        
                     }
             }
         }
@@ -132,7 +137,12 @@ public class Board {
         }
         
         //////////////////////////////////
-        
+       if(Player.GetCurrentPlayer().getColor() == Color.BLUE) {
+    g.setColor(Color.white);
+    g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
+    g.drawString("BLUE WALLS:"+Player.GetCurrentPlayer().walls+"",Window.getWidth2()/2+300,Window.getHeight()+50);
+       }
+    
     }
     
     

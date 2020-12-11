@@ -44,7 +44,6 @@ public class Player {
     {
         return (color);
     }
-
     public void placePawn (int x, int y) {
         if (pawns > 0) {
             pawns--;

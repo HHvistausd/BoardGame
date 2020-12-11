@@ -23,7 +23,7 @@ import java.awt.Graphics2D;
         g.fillRect(Window.getX(column*xdelta), Window.getY(row*ydelta), xdelta, ydelta);
         g.setColor(Color.white);
         g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,15));
-        g.drawString("PIECE",Window.getX(column*xdelta),Window.getY(row*ydelta)+25);
+        g.drawString("WALL",Window.getX(column*xdelta),Window.getY(row*ydelta)+25);
     }
 }
 
