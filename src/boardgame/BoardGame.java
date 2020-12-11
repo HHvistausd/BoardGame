@@ -11,7 +11,8 @@ public class BoardGame extends JFrame implements Runnable {
     boolean animateFirstTime = true;
     Image image;
     Graphics2D g;
-
+    boolean gameStart = false;
+    
     public static void main(String[] args) {
         BoardGame frame = new BoardGame();
         frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
@@ -27,13 +28,21 @@ public class BoardGame extends JFrame implements Runnable {
                 if (e.BUTTON1 == e.getButton() ) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    Board.CheckValidPawnPlacement(x, y);
+                    if(x > 376 && x < 626) {
+                        if(y > 629 && y < 706) {
+                            gameStart = true;
+                        }
+                    }
+                    if(gameStart == true)
+                       Board.CheckValidPawnPlacement(x, y);  
+                        
                 }
 
                 if (e.BUTTON3 == e.getButton()) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    Board.CheckValidWallPlacement(g,x, y);
+                    if(gameStart == true)
+                    Board.CheckValidWallPlacement(x, y);
                 }
 
                 repaint();
@@ -91,6 +100,9 @@ public class BoardGame extends JFrame implements Runnable {
         }
 //fill background
 //        Color darkred = new Color(170,0,0);
+
+        
+
         g.setColor(Color.black);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 
@@ -108,8 +120,19 @@ public class BoardGame extends JFrame implements Runnable {
             return;
         }
         
-              
+        if(gameStart == false) {
+        g.setColor(Color.red);
+        g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
+        g.drawString("Wallgame",Window.getWidth2()/2-50,500);
+        g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
+        g.setColor(Color.white);
+        g.drawString("START",Window.getWidth2()/2-30,750);
+        }
+        
+        
+        if(gameStart)
         Board.Draw(g);
+        
         
         gOld.drawImage(image, 0, 0, null);
     }

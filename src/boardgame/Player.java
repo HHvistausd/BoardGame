@@ -33,6 +33,7 @@ public class Player {
     {
         return(players[1]);
     }
+    
     public static void SwitchTurn()
     {
         if (currentTurn == players[0]) 

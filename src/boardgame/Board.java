@@ -39,7 +39,7 @@ public class Board {
         else
             return;
     }
-    public static void CheckValidWallPlacement(Graphics2D g,int xpixel,int ypixel) {
+    public static void CheckValidWallPlacement(int xpixel,int ypixel) {
         
         if (xpixel < 0 || xpixel > Window.getWidth2())
             return;
@@ -47,12 +47,11 @@ public class Board {
             return;   
         
         if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
-            g.setColor(Color.RED);
-            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,50));
-            g.drawString("WRONG SIDE OF THE BOARD!",Window.getWidth2()/2-250,500);
+            
             return;
         }
         if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
+            
             return;
         }
         
@@ -87,6 +86,8 @@ public class Board {
         board[row][column] = new Tile(Player.GetCurrentPlayer().getColor());
         board[row][column] = piece;
         board[row][column].piPoint = piece;
+        
+        if(Player.GetCurrentPlayer().walls == 0 && Player.GetCurrentPlayer().pawns == 0) 
         Player.SwitchTurn();
         
         
@@ -106,10 +107,9 @@ public class Board {
         board[row2][column2] = new Tile(Player.GetCurrentPlayer().getColor());
         board[row2][column2] = pawn;
         board[row2][column2].pPoint = pawn;
+        
+        if(Player.GetCurrentPlayer().walls == 0 && Player.GetCurrentPlayer().pawns == 0) 
         Player.SwitchTurn();
-        
-        
-        
         
     }
 //    
@@ -163,7 +163,7 @@ public class Board {
         }
         //////////Showing whose turn it is
         g.setColor(Color.white);
-        g.fillRect(Window.getWidth2()/2-85, Window.getHeight()+30, 200, 20);
+        g.fillRect(Window.getWidth2()/2-85, Window.getHeight()+35, 200, 20);
         
         if(Player.GetCurrentPlayer().getColor() == Color.RED) {
             g.setColor(Color.RED);
@@ -172,7 +172,7 @@ public class Board {
         }
         else {
             g.setColor(Color.BLUE);
-            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
+            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize-1));
             g.drawString("BLUE PLAYER'S TURN",Window.getWidth2()/2-fontSize*4,Window.getHeight()+50);
         }
         
@@ -189,6 +189,13 @@ public class Board {
             g.drawString("WALLS LEFT:"+Player.GetRedPlayer().walls+"",Window.getWidth2()/2-250,Window.getHeight()+50);
             g.drawString("PAWNS LEFT:"+Player.GetRedPlayer().pawns+"",Window.getWidth2()/2-450,Window.getHeight()+50);
        ////////////////////////////////////////
+//        for (int zrow=0;zrow<NUM_ROWS;zrow++)
+//        {
+//            board[zrow][12] = new Tile(Color.BLACK);
+//            g.setColor(Color.BLACK);
+//            g.fillRect(Window.getX(12*xdelta), Window.getY(zrow*ydelta), xdelta, ydelta);
+//        }
+            
     }
     
     
