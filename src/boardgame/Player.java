@@ -25,6 +25,14 @@ public class Player {
     {
         return(currentTurn);
     }
+    public static Player GetRedPlayer()
+    {
+        return(players[0]);
+    }
+    public static Player GetBluePlayer()
+    {
+        return(players[1]);
+    }
     public static void SwitchTurn()
     {
         if (currentTurn == players[0]) 

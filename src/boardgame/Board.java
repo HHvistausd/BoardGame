@@ -13,19 +13,67 @@ public class Board {
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
                 board[zrow][zcol] = null;  
     }
-    
-
-    public static void AddWallPiece(int xpixel,int ypixel) {
+    public static void CheckValidPawnPlacement(int xpixel,int ypixel) {
         if (xpixel < 0 || xpixel > Window.getWidth2())
             return;
         if (ypixel < 0 || ypixel > Window.getHeight2())
-            return;   
+            return;
+        
         if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
             return;
         }
         if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
             return;
         }
+        
+        int ydelta = Window.getHeight2()/NUM_ROWS;
+        int xdelta = Window.getWidth2()/NUM_COLUMNS;
+       
+        int column = xpixel/xdelta;   
+        int row = ypixel/ydelta; 
+
+        
+        if(board[row][column] == null) {
+            Player.GetCurrentPlayer().placePawn(xpixel,ypixel);
+        }
+        else
+            return;
+    }
+    public static void CheckValidWallPlacement(Graphics2D g,int xpixel,int ypixel) {
+        
+        if (xpixel < 0 || xpixel > Window.getWidth2())
+            return;
+        if (ypixel < 0 || ypixel > Window.getHeight2())
+            return;   
+        
+        if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,50));
+            g.drawString("WRONG SIDE OF THE BOARD!",Window.getWidth2()/2-250,500);
+            return;
+        }
+        if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
+            return;
+        }
+        
+        int ydelta = Window.getHeight2()/NUM_ROWS;
+        int xdelta = Window.getWidth2()/NUM_COLUMNS;
+       
+        int column = xpixel/xdelta;   
+        int row = ypixel/ydelta; 
+        
+        
+        if(board[row][column] == null) {
+            Player.GetCurrentPlayer().placePiece(xpixel,ypixel);
+        }
+        else
+            return;
+        
+    }
+    
+    public static void AddWallPiece(int xpixel,int ypixel) {
+        
+        
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
         
@@ -35,26 +83,17 @@ public class Board {
 
         Piece piece = new Piece();
 
-        if(board[row][column] == null) {
+        
         board[row][column] = new Tile(Player.GetCurrentPlayer().getColor());
         board[row][column] = piece;
         board[row][column].piPoint = piece;
         Player.SwitchTurn();
-        }
+        
         
     }
     
     public static void AddPawnPiece(int xpixel,int ypixel) {
-        if (xpixel < 0 || xpixel > Window.getWidth2())
-            return;
-        if (ypixel < 0 || ypixel > Window.getHeight2())
-            return;   
-        if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
-            return;
-        }
-        if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
-            return;
-        }
+         
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
         
@@ -63,12 +102,12 @@ public class Board {
         int row2 = ypixel/ydelta;   
         
         Pawn pawn = new Pawn();
-        if(board[row2][column2] == null) {
+        
         board[row2][column2] = new Tile(Player.GetCurrentPlayer().getColor());
         board[row2][column2] = pawn;
         board[row2][column2].pPoint = pawn;
         Player.SwitchTurn();
-        }
+        
         
         
         
@@ -78,10 +117,11 @@ public class Board {
     public static void Draw(Graphics2D g) {
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
-        
-        
         int fontSize = 20;
         
+        
+            
+            
          Color middleGrey = new Color(116,116,116);
         g.setColor(middleGrey);
         for (int zi = 1;zi<NUM_ROWS;zi++)
@@ -136,13 +176,19 @@ public class Board {
             g.drawString("BLUE PLAYER'S TURN",Window.getWidth2()/2-fontSize*4,Window.getHeight()+50);
         }
         
-        //////////////////////////////////
-       if(Player.GetCurrentPlayer().getColor() == Color.BLUE) {
-    g.setColor(Color.white);
-    g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
-    g.drawString("BLUE WALLS:"+Player.GetCurrentPlayer().walls+"",Window.getWidth2()/2+300,Window.getHeight()+50);
-       }
-    
+        ////////////////////////////////// Showing remaining walls and pawns
+       
+            g.setColor(Color.white);
+            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
+            g.drawString("WALLS LEFT:"+Player.GetBluePlayer().walls+"",Window.getWidth2()/2+150,Window.getHeight()+50);
+            g.drawString("PAWNS LEFT:"+Player.GetBluePlayer().pawns+"",Window.getWidth2()/2+350,Window.getHeight()+50);
+       
+       
+            g.setColor(Color.white);
+            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
+            g.drawString("WALLS LEFT:"+Player.GetRedPlayer().walls+"",Window.getWidth2()/2-250,Window.getHeight()+50);
+            g.drawString("PAWNS LEFT:"+Player.GetRedPlayer().pawns+"",Window.getWidth2()/2-450,Window.getHeight()+50);
+       ////////////////////////////////////////
     }
     
     

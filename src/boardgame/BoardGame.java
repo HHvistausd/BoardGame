@@ -20,19 +20,20 @@ public class BoardGame extends JFrame implements Runnable {
     }
 
     public BoardGame() {
+            
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
 
                 if (e.BUTTON1 == e.getButton() ) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    Player.GetCurrentPlayer().placePawn(x,y);
+                    Board.CheckValidPawnPlacement(x, y);
                 }
 
                 if (e.BUTTON3 == e.getButton()) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    Player.GetCurrentPlayer().placePiece(x,y);
+                    Board.CheckValidWallPlacement(g,x, y);
                 }
 
                 repaint();
