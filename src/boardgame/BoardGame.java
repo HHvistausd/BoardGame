@@ -33,8 +33,13 @@ public class BoardGame extends JFrame implements Runnable {
                             gameStart = true;
                         }
                     }
-                    if(gameStart == true)
-                       Board.CheckValidPawnPlacement(x, y);  
+                    
+                    if(gameStart == true) {
+                       Board.CheckValidPawnPlacement(x, y); 
+                       Board.MouseSelect(x,y);
+                           
+                       
+                    }
                         
                 }
 
@@ -71,6 +76,9 @@ public class BoardGame extends JFrame implements Runnable {
                 } else if (e.VK_DOWN == e.getKeyCode()) {
                 } else if (e.VK_LEFT == e.getKeyCode()) {
                 } else if (e.VK_RIGHT == e.getKeyCode()) {
+                    
+                    
+//                   Board.MovePawnPiece(xMove, yMove);
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
                     reset();
                 }

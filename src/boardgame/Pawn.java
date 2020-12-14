@@ -14,6 +14,8 @@ import java.awt.Graphics2D;
  * @author thebl
  */
 public class Pawn extends Tile {
+    
+    public boolean MoveRight;
     Color lCol = super.color;
     
     Pawn () {

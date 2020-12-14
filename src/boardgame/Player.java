@@ -65,6 +65,8 @@ public class Player {
             Board.AddWallPiece(x, y);
         }
     }
-    
+    public void movePawn (int x, int y) {
+        Board.AddPawnPiece(x, y);
+    }
         
 }

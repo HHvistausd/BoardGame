@@ -36,6 +36,7 @@ public class Board {
         if(board[row][column] == null) {
             Player.GetCurrentPlayer().placePawn(xpixel,ypixel);
         }
+
         else
             return;
     }
@@ -47,11 +48,9 @@ public class Board {
             return;   
         
         if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
-            
             return;
         }
         if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
-            
             return;
         }
         
@@ -65,6 +64,8 @@ public class Board {
         if(board[row][column] == null) {
             Player.GetCurrentPlayer().placePiece(xpixel,ypixel);
         }
+        
+        
         else
             return;
         
@@ -112,12 +113,60 @@ public class Board {
         Player.SwitchTurn();
         
     }
+    public static void MouseSelect(int xpixel,int ypixel) {
+        
+        boolean selected = false;
+                
+        int ydelta = Window.getHeight2()/NUM_ROWS;
+        int xdelta = Window.getWidth2()/NUM_COLUMNS;
+        
+    
+        int columnSelect = xpixel/xdelta;   
+        int rowSelect = ypixel/ydelta; 
+        
+        if(Player.GetBluePlayer().walls== 0 && Player.GetBluePlayer().pawns == 0 && 
+           Player.GetRedPlayer().walls== 0 && Player.GetRedPlayer().pawns == 0) 
+        {
+            if(board[rowSelect][columnSelect] != null) {
+                
+              selected = true;
+                
+            }
+        }
+        if(selected == true) {
+            System.out.println("select successful");
+        }
+        Board.MovePawnPiece(rowSelect, columnSelect, selected);
+        
+        
+        
+    }
+    public static void MovePawnPiece(int currentRow,int currentColumn,boolean selected) {
+    
+        
+//        if (board[currentRow+rowDir][currentColumn+columnDir] == null)
+//        {
+//        currentRow += rowDir;
+//        currentColumn+= columnDir;
+//        }
+//        rowDir = 0;
+//        columnDir = 0;
 //    
+//    
+//    
+//    
+//    
+//    if(board[row][column] == null) {
+//            Player.GetCurrentPlayer().movePawn(xpixel,ypixel);
+//        }
+    
+    
+    }
     
     public static void Draw(Graphics2D g) {
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
-        int fontSize = 20;
+        int fontSize = 19;
         
         
             
@@ -163,7 +212,7 @@ public class Board {
         }
         //////////Showing whose turn it is
         g.setColor(Color.white);
-        g.fillRect(Window.getWidth2()/2-85, Window.getHeight()+35, 200, 20);
+        g.fillRect(Window.getWidth2()/2-85, Window.getHeight()+35, 200, 30);
         
         if(Player.GetCurrentPlayer().getColor() == Color.RED) {
             g.setColor(Color.RED);
@@ -188,13 +237,8 @@ public class Board {
             g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
             g.drawString("WALLS LEFT:"+Player.GetRedPlayer().walls+"",Window.getWidth2()/2-250,Window.getHeight()+50);
             g.drawString("PAWNS LEFT:"+Player.GetRedPlayer().pawns+"",Window.getWidth2()/2-450,Window.getHeight()+50);
-       ////////////////////////////////////////
-//        for (int zrow=0;zrow<NUM_ROWS;zrow++)
-//        {
-//            board[zrow][12] = new Tile(Color.BLACK);
-//            g.setColor(Color.BLACK);
-//            g.fillRect(Window.getX(12*xdelta), Window.getY(zrow*ydelta), xdelta, ydelta);
-//        }
+       //////////////////////////////////////// setup phase
+            
             
     }
     
