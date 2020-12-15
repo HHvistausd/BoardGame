@@ -147,12 +147,12 @@ public class Board {
         int columnSelect = xpixel/xdelta;   
         int rowSelect = ypixel/ydelta; 
         
-//        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
-//            return;
-//        }
-//        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
-//            return;
-//        }
+        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
+            return;
+        }
+        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
+            return;
+        }
         
         if(Player.GetBluePlayer().walls== 0 && Player.GetBluePlayer().pawns == 0 && 
            Player.GetRedPlayer().walls== 0 && Player.GetRedPlayer().pawns == 0) 
