@@ -72,13 +72,22 @@ public class BoardGame extends JFrame implements Runnable {
         addKeyListener(new KeyAdapter() {
 
             public void keyPressed(KeyEvent e) {
-                if (e.VK_UP == e.getKeyCode()) {
+                if (e.VK_UP == e.getKeyCode()) {  
+                    
+                    Player.GetCurrentPlayer().moveUp();
+                    
                 } else if (e.VK_DOWN == e.getKeyCode()) {
+                    
+                    Player.GetCurrentPlayer().moveDown();
+                    
                 } else if (e.VK_LEFT == e.getKeyCode()) {
-                } else if (e.VK_RIGHT == e.getKeyCode()) {
                     
+                    Player.GetCurrentPlayer().moveLeft();
                     
-//                   Board.MovePawnPiece(xMove, yMove);
+                } else if (e.VK_RIGHT == e.getKeyCode()) { 
+                    
+                    Player.GetCurrentPlayer().moveRight();
+       
                 } else if (e.VK_ESCAPE == e.getKeyCode()) {
                     reset();
                 }

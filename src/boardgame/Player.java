@@ -13,7 +13,13 @@ public class Player {
     public int pawns = 10;
     public int walls = 20;
     
-    
+    public int rowDir = 0;
+    public int columnDir = 0;
+    boolean moveCalled = false;
+    boolean rightCalled = false;
+    boolean leftCalled = false;
+    boolean upCalled = false;
+    boolean downCalled = false;
     
     public static void Reset()
     {
@@ -65,8 +71,34 @@ public class Player {
             Board.AddWallPiece(x, y);
         }
     }
-    public void movePawn (int x, int y) {
-        Board.AddPawnPiece(x, y);
+    
+    
+    public void moveRight(){
+        rowDir = 0;
+        columnDir = 1;
+        moveCalled = true;
+        rightCalled = true;
     }
+     public void moveLeft(){
+        rowDir = 0;
+        columnDir = -1;
+        moveCalled = true;
+        leftCalled = true;
+    }
+     public void moveUp(){
+        rowDir = -1;
+        columnDir = 0;
+        moveCalled = true;
+        upCalled = true;
+    }
+     public void moveDown(){
+        rowDir = 1;
+        columnDir = 0;
+        moveCalled = true;
+        downCalled = true;
+    }
+//    public void movePawn (int x, int y) {
+//        Board.AddPawnPiece(x, y);
+//    }
         
 }
