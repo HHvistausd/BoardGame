@@ -40,7 +40,9 @@ public class Window {
       return (-y + TOP_BORDER + YTITLE + getHeight2());
         
     }
-    
+    public static int getWidth() {
+        return (Window.getWidth2()-Window.getWidth2());
+    }
     public static int getWidth2() {
         return (xsize - 2 * (XBORDER + WINDOW_BORDER));
     }

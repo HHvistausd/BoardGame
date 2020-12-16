@@ -21,6 +21,8 @@ public class Player {
     boolean upCalled = false;
     boolean downCalled = false;
     
+    sound placePiece = null;
+    sound placePiece2 = null;
     public static void Reset()
     {
         players[0] = new Player(Color.red);
@@ -62,12 +64,14 @@ public class Player {
     public void placePawn (int x, int y) {
         if (pawns > 0) {
             pawns--;
+            placePiece = new sound("piece-placed.wav");
             Board.AddPawnPiece(x, y);
         }
     }
     public void placePiece (int x, int y) {
         if (walls > 0) {
             walls--;
+            placePiece2 = new sound("menu-click-1.wav");
             Board.AddWallPiece(x, y);
         }
     }

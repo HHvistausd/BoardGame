@@ -1,6 +1,7 @@
 
 package boardgame;
 import java.awt.*;
+import javax.sound.sampled.*;
 
 public class Board {
     private final static int NUM_ROWS = 25;
@@ -19,10 +20,11 @@ public class Board {
         if (ypixel < 0 || ypixel > Window.getHeight2())
             return;
         
-        if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
+        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
+            
             return;
         }
-        if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
+        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
             return;
         }
         
