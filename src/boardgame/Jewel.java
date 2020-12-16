@@ -21,7 +21,6 @@ import java.awt.Graphics2D;
           color = _color;
     }
     
-    
     public void draw(Graphics2D g,int row,int column,int xdelta,int ydelta) {
         
         g.setColor(color);

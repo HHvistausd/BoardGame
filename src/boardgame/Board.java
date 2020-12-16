@@ -161,7 +161,7 @@ public class Board {
         else if(Player.GetCurrentPlayer().downCalled == true && board[currentRow-1][currentColumn] != null){
             board[currentRow-1][currentColumn]= null;
         }
-        selected = false;
+        
         if(Player.GetCurrentPlayer().walls == 0 && Player.GetCurrentPlayer().pawns == 0) {
         Player.SwitchTurn();
         }
@@ -207,14 +207,13 @@ public class Board {
     
     public static void MovePawnPiece() {
         
+        
         int rowDir = Player.GetCurrentPlayer().rowDir;
         int columnDir = Player.GetCurrentPlayer().columnDir;
         
         int currentRow = Player.GetCurrentPlayer().rowSelect;
         int currentColumn = Player.GetCurrentPlayer().columnSelect;
         boolean selected = Player.GetCurrentPlayer().selected;
-        
-        
         
         if(selected && Player.GetCurrentPlayer().moveCalled == true) {
         if (board[currentRow+rowDir][currentColumn+columnDir] == null)
@@ -225,8 +224,11 @@ public class Board {
         
         }
         }
+//        selected = false;
+        Player.GetCurrentPlayer().selected = false;
         Player.GetCurrentPlayer().rowDir = 0;
         Player.GetCurrentPlayer().columnDir = 0;
+        
     }
     
     public static void Draw(Graphics2D g) {
@@ -315,7 +317,18 @@ public class Board {
                 g.drawString("SETUP",Window.getWidth2()/2-fontSize,Window.getHeight()+63);
             }
         }
-        
+        if(setupPhase == false) {
+            if(Player.GetCurrentPlayer() == Player.GetRedPlayer()) {
+                g.setColor(Color.RED);
+                g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize-2));
+                g.drawString("PLAY",Window.getWidth2()/2-fontSize,Window.getHeight()+63);
+            }
+            if(Player.GetCurrentPlayer() == Player.GetBluePlayer()) {
+                g.setColor(Color.BLUE);
+                g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize-2));
+                g.drawString("PLAY",Window.getWidth2()/2-fontSize,Window.getHeight()+63);
+            }
+        }
         
         ////////////////////////////////// Showing remaining walls and pawns
        
