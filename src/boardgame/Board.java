@@ -214,6 +214,8 @@ public class Board {
         int currentColumn = Player.GetCurrentPlayer().columnSelect;
         boolean selected = Player.GetCurrentPlayer().selected;
         
+        
+        
         if(selected && Player.GetCurrentPlayer().moveCalled == true) {
         if (board[currentRow+rowDir][currentColumn+columnDir] == null)
         {
@@ -231,6 +233,7 @@ public class Board {
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
         int fontSize = 19;
+        boolean setupPhase = true;
         
         Color middleGrey = new Color(116,116,116);
         g.setColor(middleGrey);
@@ -296,6 +299,23 @@ public class Board {
             g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize-1));
             g.drawString("BLUE PLAYER'S TURN",Window.getWidth2()/2-fontSize*4,Window.getHeight()+50);
         }
+        if(Player.GetRedPlayer().walls == 0 && Player.GetRedPlayer().pawns == 0 && 
+           Player.GetBluePlayer().walls == 0 && Player.GetBluePlayer().pawns == 0) {
+            setupPhase = false;
+        }
+        if(setupPhase) {
+            if(Player.GetCurrentPlayer() == Player.GetRedPlayer()) {
+                g.setColor(Color.RED);
+                g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize-2));
+                g.drawString("SETUP",Window.getWidth2()/2-fontSize,Window.getHeight()+63);
+            }
+            if(Player.GetCurrentPlayer() == Player.GetBluePlayer()) {
+                g.setColor(Color.BLUE);
+                g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize-2));
+                g.drawString("SETUP",Window.getWidth2()/2-fontSize,Window.getHeight()+63);
+            }
+        }
+        
         
         ////////////////////////////////// Showing remaining walls and pawns
        

@@ -27,8 +27,8 @@ import java.awt.Graphics2D;
         g.setColor(color);
         g.fillRect(Window.getX(column*xdelta), Window.getY(row*ydelta), xdelta, ydelta);
         g.setColor(Color.white);
-        g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,15));
-        g.drawString("Jewel",Window.getX(column*xdelta),Window.getY(row*ydelta)+25);
+        g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,14));
+        g.drawString("JEWEL",Window.getX(column*xdelta),Window.getY(row*ydelta)+25);
     }
 }
 

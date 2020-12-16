@@ -55,7 +55,7 @@ public class BoardGame extends JFrame implements Runnable {
                      if(x > Window.getWidth()+25 && x < Window.getWidth()+125 &&
                         y > Window.getHeight2()-50 && y < Window.getHeight2()-20){
                             if(gameStart == false && howToPlay == true) {
-                            menuClick = new sound("button3.wav");
+                            menuClick = new sound("buttonclickrelease.wav");
                             howToPlay = false;
                             //System.out.println("test");
                             }
