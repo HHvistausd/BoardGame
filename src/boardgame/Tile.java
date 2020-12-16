@@ -7,6 +7,7 @@ public class Tile {
     
     public Pawn pPoint;
     public Piece piPoint;
+    public Jewel jPoint;
     
     public Color color;
     

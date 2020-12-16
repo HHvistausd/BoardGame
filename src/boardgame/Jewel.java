@@ -11,16 +11,20 @@ import java.awt.Graphics2D;
     public class Jewel extends Tile {
 //    Color lCol = super.color;
     private Color color;
+    private Tile tile;
     
     Jewel(Color _color)
     {
+          
 //        color = _color;
-          super(Player.GetCurrentPlayer().getColor());
+          super(_color);
+          color = _color;
     }
     
     
     public void draw(Graphics2D g,int row,int column,int xdelta,int ydelta) {
-        g.setColor(Color.green);
+        
+        g.setColor(color);
         g.fillRect(Window.getX(column*xdelta), Window.getY(row*ydelta), xdelta, ydelta);
         g.setColor(Color.white);
         g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,15));

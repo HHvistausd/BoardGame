@@ -13,7 +13,30 @@ public class Board {
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
                 board[zrow][zcol] = null;  
+        
+        setUpJewels();
     }
+    
+    public static void setUpJewels() {
+        int row2 = NUM_ROWS/2;
+        int col2 = NUM_COLUMNS-1;
+        Color color = Player.GetRedPlayer().getColor();
+        
+        Jewel jewel = new Jewel(color);
+        
+        board[row2][0] = new Tile(color);
+        board[row2][0] = jewel;
+        board[row2][0].jPoint = jewel;
+        
+        color = Player.GetBluePlayer().getColor();
+        jewel = new Jewel(color);
+        
+        board[row2][col2] = new Tile(color);
+        board[row2][col2] = jewel;
+        board[row2][col2].jPoint = jewel;
+    }
+    
+    
     public static void CheckValidPawnPlacement(int xpixel,int ypixel) {
         if (xpixel < 0 || xpixel > Window.getWidth2())
             return;
@@ -232,6 +255,17 @@ public class Board {
                  if (board[zrow][zcol] != null)
                     if (board[zrow][zcol].piPoint != null) {
                         board[zrow][zcol].piPoint.draw(g, zrow, zcol,xdelta, ydelta);
+                        
+                    }
+            }
+        }
+        for (int zrow=0;zrow<NUM_ROWS;zrow++)
+        {
+            for (int zcol=0;zcol<NUM_COLUMNS;zcol++)        
+            {
+                 if (board[zrow][zcol] != null)
+                    if (board[zrow][zcol].jPoint != null) {
+                        board[zrow][zcol].jPoint.draw(g, zrow, zcol,xdelta, ydelta);
                         
                     }
             }
