@@ -57,11 +57,9 @@ public class BoardGame extends JFrame implements Runnable {
                             if(gameStart == false && howToPlay == true) {
                             menuClick = new sound("button3.wav");
                             howToPlay = false;
-                            System.out.println("bruh");
+                            //System.out.println("test");
                             }
-                            
-                         
-                            }
+                        }
                         
                     if(gameStart == true) {
                        Board.CheckValidPawnPlacement(x, y); 
@@ -124,20 +122,17 @@ public class BoardGame extends JFrame implements Runnable {
 
             public void keyPressed(KeyEvent e) {
                 if (e.VK_UP == e.getKeyCode() || e.VK_W == e.getKeyCode()) {  
-                    
                     Player.GetCurrentPlayer().moveUp();
-                    
+                    Board.MovePawnPiece();
                 } else if (e.VK_DOWN == e.getKeyCode() || e.VK_S == e.getKeyCode()) {
-                    
                     Player.GetCurrentPlayer().moveDown();
-                    
+                    Board.MovePawnPiece();
                 } else if (e.VK_LEFT == e.getKeyCode() || e.VK_A == e.getKeyCode()) {
-                    
                     Player.GetCurrentPlayer().moveLeft();
-                    
+                    Board.MovePawnPiece();
                 } else if (e.VK_RIGHT == e.getKeyCode() || e.VK_D == e.getKeyCode()) { 
-                    
                     Player.GetCurrentPlayer().moveRight();
+                    Board.MovePawnPiece();
                 }
                 
                 else if (e.VK_ESCAPE == e.getKeyCode()) {

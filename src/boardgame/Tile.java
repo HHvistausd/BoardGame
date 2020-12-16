@@ -11,6 +11,7 @@ public class Tile {
     
     public Color color;
     
+    
     Tile(Color _color)
     {
         color = _color;        
@@ -19,7 +20,9 @@ public class Tile {
     {
         return (color);
     }
-    
+    public Player getCurrentPlayer() {
+        return(Player.GetCurrentPlayer());
+    }
 
     
 }
