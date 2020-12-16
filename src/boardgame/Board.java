@@ -118,26 +118,31 @@ public class Board {
         
     }
     
-    public static void ShiftPawnPiece(int currentRow,int currentColumn) {
+    public static void ShiftPawnPiece(int currentRow,int currentColumn,boolean selected) {
          
         Pawn pawn = new Pawn();
         
         board[currentRow][currentColumn] = new Tile(Player.GetCurrentPlayer().getColor());
         board[currentRow][currentColumn] = pawn;
         board[currentRow][currentColumn].pPoint = pawn;
- 
-        if(Player.GetCurrentPlayer().rightCalled)
-            board[currentRow][currentColumn-1]= null;
-        if(Player.GetCurrentPlayer().leftCalled)
-            board[currentRow][currentColumn+1]= null;
-        if(Player.GetCurrentPlayer().upCalled)    
-            board[currentRow+1][currentColumn] = null;
-        if(Player.GetCurrentPlayer().downCalled)
-            board[currentRow-1][currentColumn]= null;
         
-        if(Player.GetCurrentPlayer().walls == 0 && Player.GetCurrentPlayer().pawns == 0) 
-            
+        if(Player.GetCurrentPlayer().rightCalled == true && board[currentRow][currentColumn-1] != null) {
+            board[currentRow][currentColumn-1]= null;
+        }
+        else if(Player.GetCurrentPlayer().leftCalled == true && board[currentRow][currentColumn+1] != null) {
+            board[currentRow][currentColumn+1]= null;
+        }
+        else if(Player.GetCurrentPlayer().upCalled == true && board[currentRow+1][currentColumn] != null) {
+            board[currentRow+1][currentColumn] = null;
+        }
+        else if(Player.GetCurrentPlayer().downCalled == true && board[currentRow-1][currentColumn] != null){
+            board[currentRow-1][currentColumn]= null;
+        }
+        selected = false;
+        if(Player.GetCurrentPlayer().walls == 0 && Player.GetCurrentPlayer().pawns == 0) {
         Player.SwitchTurn();
+        }
+        
     }
     
     public static void MouseSelect(int xpixel,int ypixel) {
@@ -145,48 +150,55 @@ public class Board {
         boolean selected = false;
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
-    
+        
         int columnSelect = xpixel/xdelta;   
         int rowSelect = ypixel/ydelta; 
         
-        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
-            return;
-        }
-        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
-            return;
-        }
+        
         
         if(Player.GetBluePlayer().walls== 0 && Player.GetBluePlayer().pawns == 0 && 
            Player.GetRedPlayer().walls== 0 && Player.GetRedPlayer().pawns == 0) 
         {
             if(board[rowSelect][columnSelect] != null) {
-                
+
                selected = true;
-              
             }
         }
-        if(selected) {
-        System.out.println("select successful");
+        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && board[rowSelect][columnSelect].getColor() == Player.GetBluePlayer().getColor()) {
+            selected = false;
+        }
+        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && board[rowSelect][columnSelect].getColor() == Player.GetRedPlayer().getColor()) {
+            selected = false;
         }
         
-        Board.MovePawnPiece(rowSelect, columnSelect, selected);
+        if(selected) {
+        System.out.println("select successful");
+//        Board.MovePawnPiece(rowSelect, columnSelect, selected);
+        Player.mouseValues(rowSelect, columnSelect, selected);
+//        Board.MovePawnPiece();
+        
+        }
+        
                 
     }
     
-    public static void MovePawnPiece(int currentRow,int currentColumn,boolean selected) {
+    public static void MovePawnPiece() {
         
         int rowDir = Player.GetCurrentPlayer().rowDir;
         int columnDir = Player.GetCurrentPlayer().columnDir;
         
+        int currentRow = Player.GetCurrentPlayer().rowSelect;
+        int currentColumn = Player.GetCurrentPlayer().columnSelect;
+        boolean selected = Player.GetCurrentPlayer().selected;
         
         if(selected && Player.GetCurrentPlayer().moveCalled == true) {
         if (board[currentRow+rowDir][currentColumn+columnDir] == null)
         {
         currentRow += rowDir;
         currentColumn+= columnDir;
-        Board.ShiftPawnPiece(currentRow, currentColumn);
-        }
+        Board.ShiftPawnPiece(currentRow, currentColumn, selected);
         
+        }
         }
         Player.GetCurrentPlayer().rowDir = 0;
         Player.GetCurrentPlayer().columnDir = 0;

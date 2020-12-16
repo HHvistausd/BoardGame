@@ -15,6 +15,11 @@ public class Player {
     
     public int rowDir = 0;
     public int columnDir = 0;
+    
+    public int rowSelect = 0;
+    public int columnSelect = 0;
+    public boolean selected = false;
+    
     boolean moveCalled = false;
     boolean rightCalled = false;
     boolean leftCalled = false;
@@ -51,7 +56,11 @@ public class Player {
             currentTurn = players[0];
         
     } 
-    
+    public static void mouseValues(int _rowSelect, int _columnSelect, boolean _selected){
+        Player.GetCurrentPlayer().rowSelect = _rowSelect;
+        Player.GetCurrentPlayer().columnSelect = _columnSelect;
+        Player.GetCurrentPlayer().selected = _selected;
+    }
     
     Player(Color _color)
     {
@@ -78,28 +87,36 @@ public class Player {
     
     
     public void moveRight(){
+        if(selected) {
         rowDir = 0;
         columnDir = 1;
         moveCalled = true;
         rightCalled = true;
+        }
     }
      public void moveLeft(){
+        if(selected) {
         rowDir = 0;
         columnDir = -1;
         moveCalled = true;
         leftCalled = true;
+         }
     }
      public void moveUp(){
+        if(selected) {
         rowDir = -1;
         columnDir = 0;
         moveCalled = true;
         upCalled = true;
+         }
     }
      public void moveDown(){
+        if(selected) {
         rowDir = 1;
         columnDir = 0;
         moveCalled = true;
         downCalled = true;
+         }
     }
 //    public void movePawn (int x, int y) {
 //        Board.AddPawnPiece(x, y);
