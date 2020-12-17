@@ -13,6 +13,7 @@ public class BoardGame extends JFrame implements Runnable {
     Image image;
     Graphics2D g;
     boolean gameStart = false;
+    int notFirstClick = 0; //bug prevention
     boolean howToPlay;
     boolean aboutSelectStart = false;
     boolean aboutSelectHow = false;
@@ -36,14 +37,13 @@ public class BoardGame extends JFrame implements Runnable {
                 if (e.BUTTON1 == e.getButton() ) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-
+                    notFirstClick++;
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+165 && y < Window.getHeight2()/2+240){
                             if(gameStart == false && howToPlay == false) {
                             menuClick = new sound("button3.wav");
                             gameStart = true;
                             }
-                            
                         }
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+25 && y < Window.getHeight2()/2+105){
@@ -61,19 +61,18 @@ public class BoardGame extends JFrame implements Runnable {
                             }
                         }
                         
-                    if(gameStart == true) {
+                    if(gameStart == true && notFirstClick>=2) {
                        Board.CheckValidPawnPlacement(x, y); 
                        Board.MouseSelect(x,y);
-                    }
-                        
+                       }
+                      
                 }
-
                 if (e.BUTTON3 == e.getButton()) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
                     if(gameStart == true)
                     Board.CheckValidWallPlacement(x, y);
-                }
+                    }
 
                 repaint();
             }

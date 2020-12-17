@@ -10,8 +10,8 @@ public class Player {
     public static Player currentTurn;
     private static Player players[] = new Player[2];
     private Color color;    
-    public int pawns = 10;
-    public int walls = 20;
+    public int pawns = 1;
+    public int walls = 2;
     
     public int rowDir = 0;
     public int columnDir = 0;

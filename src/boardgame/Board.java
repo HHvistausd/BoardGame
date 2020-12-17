@@ -3,11 +3,13 @@ package boardgame;
 import java.awt.*;
 import javax.sound.sampled.*;
 
+
 public class Board {
     private final static int NUM_ROWS = 25;
     private final static int NUM_COLUMNS = 25;      
     private static Tile board[][] = new Tile[NUM_ROWS][NUM_COLUMNS];
-    
+    private static boolean invalidPlacement;
+    private static boolean setupPhase = true;
     
     public static void Reset() {
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
@@ -15,6 +17,7 @@ public class Board {
                 board[zrow][zcol] = null;  
         
         setUpJewels();
+        invalidPlacement = false;
     }
     
     public static void setUpJewels() {
@@ -38,16 +41,23 @@ public class Board {
     
     
     public static void CheckValidPawnPlacement(int xpixel,int ypixel) {
+        sound denySelect = null;
+        
         if (xpixel < 0 || xpixel > Window.getWidth2())
             return;
         if (ypixel < 0 || ypixel > Window.getHeight2())
             return;
         
         if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
-            
+            invalidPlacement = true;
+            if(setupPhase)
+            denySelect = new sound("denyselect.wav");
             return;
         }
         if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
+            invalidPlacement = true;
+            if(setupPhase)
+            denySelect = new sound("denyselect.wav");
             return;
         }
         
@@ -56,7 +66,8 @@ public class Board {
        
         int column = xpixel/xdelta;   
         int row = ypixel/ydelta; 
-
+        
+        invalidPlacement = false;
         
         if(board[row][column] == null) {
             Player.GetCurrentPlayer().placePawn(xpixel,ypixel);
@@ -67,15 +78,23 @@ public class Board {
     }
     public static void CheckValidWallPlacement(int xpixel,int ypixel) {
         
+        sound denySelect = null;
+        
         if (xpixel < 0 || xpixel > Window.getWidth2())
             return;
         if (ypixel < 0 || ypixel > Window.getHeight2())
             return;   
         
         if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
+            invalidPlacement = true;
+            if(setupPhase)
+            denySelect = new sound("denyselect.wav");
             return;
         }
         if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
+            invalidPlacement = true;
+            if(setupPhase)
+            denySelect = new sound("denyselect.wav");
             return;
         }
         
@@ -85,6 +104,7 @@ public class Board {
         int column = xpixel/xdelta;   
         int row = ypixel/ydelta; 
         
+        invalidPlacement = false;
         
         if(board[row][column] == null) {
             Player.GetCurrentPlayer().placePiece(xpixel,ypixel);
@@ -150,15 +170,19 @@ public class Board {
         board[currentRow][currentColumn].pPoint = pawn;
         
         if(Player.GetCurrentPlayer().rightCalled == true && board[currentRow][currentColumn-1] != null) {
+            if(board[currentRow][currentColumn-1].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
             board[currentRow][currentColumn-1]= null;
         }
         else if(Player.GetCurrentPlayer().leftCalled == true && board[currentRow][currentColumn+1] != null) {
+            if(board[currentRow][currentColumn+1].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
             board[currentRow][currentColumn+1]= null;
         }
         else if(Player.GetCurrentPlayer().upCalled == true && board[currentRow+1][currentColumn] != null) {
+            if(board[currentRow+1][currentColumn].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
             board[currentRow+1][currentColumn] = null;
         }
         else if(Player.GetCurrentPlayer().downCalled == true && board[currentRow-1][currentColumn] != null){
+            if(board[currentRow-1][currentColumn].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
             board[currentRow-1][currentColumn]= null;
         }
         
@@ -177,29 +201,29 @@ public class Board {
         int columnSelect = xpixel/xdelta;   
         int rowSelect = ypixel/ydelta; 
         
-        
-        
         if(Player.GetBluePlayer().walls== 0 && Player.GetBluePlayer().pawns == 0 && 
            Player.GetRedPlayer().walls== 0 && Player.GetRedPlayer().pawns == 0) 
         {
-            if(board[rowSelect][columnSelect] != null) {
+            if(board[rowSelect][columnSelect] != null && board[rowSelect][columnSelect] != board[rowSelect][columnSelect].piPoint) {
 
                selected = true;
             }
         }
         if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && board[rowSelect][columnSelect].getColor() == Player.GetBluePlayer().getColor()) {
             selected = false;
+            
         }
         if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && board[rowSelect][columnSelect].getColor() == Player.GetRedPlayer().getColor()) {
             selected = false;
+           
         }
         
         if(selected) {
-        System.out.println("select successful");
-//        Board.MovePawnPiece(rowSelect, columnSelect, selected);
+//        board[rowSelect-1][columnSelect] = new Tile(Color.GRAY);
+//        board[rowSelect+1][columnSelect] = new Tile(Color.GRAY);
+//        board[rowSelect][columnSelect-1] = new Tile(Color.GRAY);
+//        board[rowSelect][columnSelect+1] = new Tile(Color.GRAY);
         Player.mouseValues(rowSelect, columnSelect, selected);
-//        Board.MovePawnPiece();
-        
         }
         
                 
@@ -235,7 +259,7 @@ public class Board {
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
         int fontSize = 19;
-        boolean setupPhase = true;
+        
         
         Color middleGrey = new Color(116,116,116);
         g.setColor(middleGrey);
@@ -305,6 +329,7 @@ public class Board {
            Player.GetBluePlayer().walls == 0 && Player.GetBluePlayer().pawns == 0) {
             setupPhase = false;
         }
+        //////////////////////Showing the phase
         if(setupPhase) {
             if(Player.GetCurrentPlayer() == Player.GetRedPlayer()) {
                 g.setColor(Color.RED);
@@ -342,8 +367,13 @@ public class Board {
             g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
             g.drawString("WALLS LEFT:"+Player.GetRedPlayer().walls+"",Window.getWidth2()/2-250,Window.getHeight()+50);
             g.drawString("PAWNS LEFT:"+Player.GetRedPlayer().pawns+"",Window.getWidth2()/2-450,Window.getHeight()+50);
-       //////////////////////////////////////// setup phase
-            
+       //////////////////////////////////////// 
+            if(invalidPlacement && setupPhase) {
+            g.setColor(Color.black);
+            g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,25));
+            g.drawString("You can only place pieces on your own side!",Window.getWidth2()/2-200,Window.getHeight2()/2);
+            }
+//            board[5][5] = new Tile(Color.GRAY);
             
     }
     

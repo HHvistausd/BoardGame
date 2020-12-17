@@ -5,7 +5,7 @@
             <url>src/boardgame/BoardGame.java</url>
             <bookmark id="1">
                 <name/>
-                <line>79</line>
+                <line>76</line>
                 <key/>
             </bookmark>
         </file>
@@ -13,7 +13,7 @@
             <url>src/boardgame/Board.java</url>
             <bookmark id="2">
                 <name/>
-                <line>180</line>
+                <line>215</line>
                 <key/>
             </bookmark>
         </file>
@@ -22,6 +22,7 @@
         <group>
             <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Pawn.java</file>
             <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Window.java</file>
+            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Jewel.java</file>
             <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Board.java</file>
             <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Player.java</file>
             <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Piece.java</file>
