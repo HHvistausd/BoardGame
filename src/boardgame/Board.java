@@ -85,13 +85,13 @@ public class Board {
         if (ypixel < 0 || ypixel > Window.getHeight2())
             return;   
         
-        if(Player.GetCurrentPlayer().getColor() == Color.RED && xpixel > Window.getWidth2()/2) {
+        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
             invalidPlacement = true;
             if(setupPhase)
             denySelect = new sound("denyselect.wav");
             return;
         }
-        if(Player.GetCurrentPlayer().getColor() == Color.BLUE && xpixel < Window.getWidth2()/2) {
+        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
             invalidPlacement = true;
             if(setupPhase)
             denySelect = new sound("denyselect.wav");
@@ -170,19 +170,19 @@ public class Board {
         board[currentRow][currentColumn].pPoint = pawn;
         
         if(Player.GetCurrentPlayer().rightCalled == true && board[currentRow][currentColumn-1] != null) {
-            if(board[currentRow][currentColumn-1].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
+            if(board[currentRow][currentColumn-1].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow][currentColumn-1]= null;
         }
         else if(Player.GetCurrentPlayer().leftCalled == true && board[currentRow][currentColumn+1] != null) {
-            if(board[currentRow][currentColumn+1].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
+            if(board[currentRow][currentColumn+1].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow][currentColumn+1]= null;
         }
         else if(Player.GetCurrentPlayer().upCalled == true && board[currentRow+1][currentColumn] != null) {
-            if(board[currentRow+1][currentColumn].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
+            if(board[currentRow+1][currentColumn].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow+1][currentColumn] = null;
         }
         else if(Player.GetCurrentPlayer().downCalled == true && board[currentRow-1][currentColumn] != null){
-            if(board[currentRow-1][currentColumn].getCurrentPlayer().getColor() == Player.GetCurrentPlayer().getColor())
+            if(board[currentRow-1][currentColumn].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow-1][currentColumn]= null;
         }
         
@@ -219,10 +219,6 @@ public class Board {
         }
         
         if(selected) {
-//        board[rowSelect-1][columnSelect] = new Tile(Color.GRAY);
-//        board[rowSelect+1][columnSelect] = new Tile(Color.GRAY);
-//        board[rowSelect][columnSelect-1] = new Tile(Color.GRAY);
-//        board[rowSelect][columnSelect+1] = new Tile(Color.GRAY);
         Player.mouseValues(rowSelect, columnSelect, selected);
         }
         
@@ -315,7 +311,7 @@ public class Board {
         g.setColor(Color.white);
         g.fillRect(Window.getWidth2()/2-85, Window.getHeight()+35, 200, 30);
         
-        if(Player.GetCurrentPlayer().getColor() == Color.RED) {
+        if(Player.GetCurrentPlayer() == Player.GetRedPlayer()) {
             g.setColor(Color.RED);
             g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,fontSize));
             g.drawString("RED PLAYER'S TURN",Window.getWidth2()/2-fontSize*4,Window.getHeight()+50);
