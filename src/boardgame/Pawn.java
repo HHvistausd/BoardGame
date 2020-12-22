@@ -32,16 +32,14 @@ public class Pawn extends Tile {
     
     
     public void draw(Graphics2D g,int row,int column,int xdelta,int ydelta) {
-        g.setColor(lCol);
-        g.fillOval(Window.getX(column*xdelta), Window.getY(row*ydelta), xdelta, ydelta);
 
-//        pawnImage = Toolkit.getDefaultToolkit().getImage("./redHelm.png");
-//        g.drawImage(pawnImage,Window.getX(column*xdelta),Window.getY(row*ydelta),null);
-//        }
-//            pawnImage = Toolkit.getDefaultToolkit().getImage("./redHelm.png");
-//          g.drawImage(pawnImage, Window.getX(column*xdelta), Window.getY(row*ydelta),null);
-        g.setColor(Color.white);
-        g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,15));
-        g.drawString("PAWN",Window.getX(column*xdelta),Window.getY(row*ydelta)+25);
+        if(lCol == Color.red) {
+        pawnImage = Toolkit.getDefaultToolkit().getImage("./redHelm.png");
+        g.drawImage(pawnImage,Window.getX(column*xdelta),Window.getY(row*ydelta),null);
+        }
+        if(lCol == Color.blue) {
+        pawnImage = Toolkit.getDefaultToolkit().getImage("./blueHelm.png");
+        g.drawImage(pawnImage,Window.getX(column*xdelta),Window.getY(row*ydelta),null);
+        }
     }
 }

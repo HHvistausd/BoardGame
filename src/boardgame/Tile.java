@@ -9,6 +9,7 @@ public class Tile {
     public Piece piPoint;
     public Jewel jPoint;
     
+    
     public Color color;
     
     

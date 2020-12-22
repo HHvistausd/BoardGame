@@ -18,6 +18,7 @@ public class Board {
         
         setUpJewels();
         invalidPlacement = false;
+        setupPhase = true;
     }
     
     public static void setUpJewels() {
@@ -209,6 +210,7 @@ public class Board {
                selected = true;
             }
         }
+        
         if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && board[rowSelect][columnSelect].getColor() == Player.GetBluePlayer().getColor()) {
             selected = false;
             
@@ -217,6 +219,7 @@ public class Board {
             selected = false;
            
         }
+        
         
         if(selected) {
         Player.mouseValues(rowSelect, columnSelect, selected);
@@ -236,13 +239,13 @@ public class Board {
         boolean selected = Player.GetCurrentPlayer().selected;
         
         if(selected && Player.GetCurrentPlayer().moveCalled == true) {
-        if (board[currentRow+rowDir][currentColumn+columnDir] == null)
-        {
-        currentRow += rowDir;
-        currentColumn+= columnDir;
-        Board.ShiftPawnPiece(currentRow, currentColumn, selected);
-        
-        }
+            if (board[currentRow+rowDir][currentColumn+columnDir] == null)
+            {
+            currentRow += rowDir;
+            currentColumn+= columnDir;
+            Board.ShiftPawnPiece(currentRow, currentColumn, selected);
+
+            }
         }
 //        selected = false;
         Player.GetCurrentPlayer().selected = false;
@@ -283,7 +286,8 @@ public class Board {
                     }
                     
             }
-        }    
+        }   
+        
         //drawing walls (pieces)
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
         {
