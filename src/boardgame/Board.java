@@ -195,6 +195,11 @@ public class Board {
     
     public static void MouseSelect(int xpixel,int ypixel) {
         
+        if (xpixel < 0 || xpixel > Window.getWidth2())
+            return;
+        if (ypixel < 0 || ypixel > Window.getHeight2())
+            return;
+        
         boolean selected = false;
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
