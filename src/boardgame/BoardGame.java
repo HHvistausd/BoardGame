@@ -13,6 +13,8 @@ public class BoardGame extends JFrame implements Runnable {
     Image image;
     Graphics2D g;
     boolean gameStart = false;
+    boolean gamePause = false;
+    boolean allowPlace = false;
     int notFirstClick = 0; //bug prevention
     boolean howToPlay;
     boolean aboutSelectStart = false;
@@ -37,12 +39,17 @@ public class BoardGame extends JFrame implements Runnable {
                 if (e.BUTTON1 == e.getButton() ) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    notFirstClick++;
+                    
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+165 && y < Window.getHeight2()/2+240){
                             if(gameStart == false && howToPlay == false) {
                             menuClick = new sound("button3.wav");
                             gameStart = true;
+                            allowPlace = true;
+                            }
+                            if(gamePause && howToPlay == false) {
+                            menuClick = new sound("button3.wav");
+                            gamePause = false;
                             }
                         }
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
@@ -51,17 +58,25 @@ public class BoardGame extends JFrame implements Runnable {
                             menuClick = new sound("button3.wav");
                             howToPlay = true;
                             }
+                            if(gamePause && howToPlay == false) {
+                            menuClick = new sound("button3.wav");
+                            gamePause = false;
+                            howToPlay = true;
+                            allowPlace = false;
+                            }
                         }   
                      if(x > Window.getWidth()+25 && x < Window.getWidth()+125 &&
                         y > Window.getHeight2()-50 && y < Window.getHeight2()-20){
-                            if(gameStart == false && howToPlay == true) {
+                            if(howToPlay) {
                             menuClick = new sound("buttonclickrelease.wav");
                             howToPlay = false;
+                            allowPlace = true;
                             //System.out.println("test");
                             }
                         }
-                        
-                    if(gameStart == true && notFirstClick>=2) {
+                    if(gameStart && allowPlace)   
+                        notFirstClick++;
+                    if(gameStart && notFirstClick>=2 && allowPlace && gamePause == false) {
                        Board.CheckValidPawnPlacement(x, y); 
                        Board.MouseSelect(x,y);
                        }
@@ -70,8 +85,10 @@ public class BoardGame extends JFrame implements Runnable {
                 if (e.BUTTON3 == e.getButton()) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    if(gameStart == true)
+                    if(gameStart && gamePause == false && allowPlace){
                     Board.CheckValidWallPlacement(x, y);
+                    
+                    }
                     }
 
                 repaint();
@@ -135,7 +152,12 @@ public class BoardGame extends JFrame implements Runnable {
                 }
                 
                 else if (e.VK_ESCAPE == e.getKeyCode()) {
-                    reset();
+                      if(gamePause == false && howToPlay == false) {
+                      gamePause = true;
+                      notFirstClick = 0;
+                      }
+//                    gameStart = false;
+//                    reset();
                 }
                 repaint();
             }
@@ -183,6 +205,10 @@ public class BoardGame extends JFrame implements Runnable {
             return;
         }
         
+        if(gameStart && howToPlay == false)
+        Board.Draw(g);
+        
+        //game start menu
         if(gameStart == false && howToPlay == false) {
         g.setColor(Color.red);
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
@@ -194,29 +220,69 @@ public class BoardGame extends JFrame implements Runnable {
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,30));
         g.drawString("HOW TO PLAY",Window.getWidth2()/2-50,Window.getHeight2()/2+150);
         }
-        if(gameStart == false && howToPlay == true) {
+        if(howToPlay) {
+//           g.setColor(Color.white);
+//           g.fillPolygon(x, y, 4);
            g.setColor(Color.red);
            g.fillRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
+           g.setColor(Color.white);
            g.setColor(Color.white);
            g.setFont(new Font("Franklin Gothic",Font.PLAIN,20));
            g.drawString("BACK",Window.getWidth()+100,Window.getHeight2()+45);
            }
         
-        if(gameStart == false && aboutSelectStart == true && howToPlay == false) {
+        //game pause menu
+        if(gamePause && gameStart) {
+            g.setColor(Color.white);
+            g.fillRect(Window.getWidth2()/2-100, Window.getHeight2()/2-100, 300, 450);
+        }
+        if(gamePause && gameStart) {
+        g.setColor(Color.red);
+        g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
+        g.drawString("PAUSED",Window.getWidth2()/2-55, Window.getHeight2()/2);
+        g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
+        g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
+        g.setColor(Color.white);
+        g.drawString("BACK",Window.getWidth2()/2-25,Window.getHeight2()/2+290);
+        g.setFont(new Font("Franklin Gothic",Font.PLAIN,30));
+        g.drawString("HOW TO PLAY",Window.getWidth2()/2-50,Window.getHeight2()/2+150);
+        }
+        
+        
+        //game start menu
+        if(gameStart == false && aboutSelectStart && howToPlay == false) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
         }
-        if(gameStart == false && aboutSelectHow == true && howToPlay == false) {
+        if(gameStart == false && aboutSelectHow && howToPlay == false) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
         }
-        if(gameStart == false && aboutSelectBack == true && howToPlay == true) {
+        if(gameStart == false && aboutSelectBack && howToPlay) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
         }
-
-        if(gameStart)
-        Board.Draw(g);
+        
+        
+        /////game paused menu
+        if(gamePause && gameStart && aboutSelectStart && howToPlay == false) {
+        g.setColor(Color.black);
+        g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
+        }
+        if(gamePause && gameStart &&aboutSelectHow && howToPlay == false) {
+        g.setColor(Color.black);
+        g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
+        }
+        if(aboutSelectBack && howToPlay && gameStart) {
+        g.setColor(Color.black);
+        g.drawRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
+        }
+        
+        
+        
+        
+        
+        
         
         
         gOld.drawImage(image, 0, 0, null);

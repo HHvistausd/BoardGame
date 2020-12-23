@@ -51,14 +51,16 @@ public class Board {
         
         if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
             invalidPlacement = true;
-            if(setupPhase)
+            if(setupPhase) {
             denySelect = new sound("denyselect.wav");
+            }
             return;
         }
         if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
             invalidPlacement = true;
-            if(setupPhase)
+            if(setupPhase) {
             denySelect = new sound("denyselect.wav");
+            }
             return;
         }
         
@@ -88,14 +90,16 @@ public class Board {
         
         if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && xpixel > Window.getWidth2()/2) {
             invalidPlacement = true;
-            if(setupPhase)
+            if(setupPhase) {
             denySelect = new sound("denyselect.wav");
+            }
             return;
         }
         if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && xpixel < Window.getWidth2()/2) {
             invalidPlacement = true;
-            if(setupPhase)
+            if(setupPhase) {
             denySelect = new sound("denyselect.wav");
+            }
             return;
         }
         
@@ -216,17 +220,20 @@ public class Board {
             }
         }
         
-        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && board[rowSelect][columnSelect].getColor() == Player.GetBluePlayer().getColor()) {
+        if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && board[rowSelect][columnSelect].getColor() == Player.GetBluePlayer().getColor() 
+            || board[rowSelect][columnSelect] == null) {
             selected = false;
-            
+            return;
         }
-        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && board[rowSelect][columnSelect].getColor() == Player.GetRedPlayer().getColor()) {
+        if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && board[rowSelect][columnSelect].getColor() == Player.GetRedPlayer().getColor()
+            || board[rowSelect][columnSelect] == null) {
             selected = false;
-           
+           return;
         }
         
         
         if(selected) {
+        System.out.println("successful");
         Player.mouseValues(rowSelect, columnSelect, selected);
         }
         
