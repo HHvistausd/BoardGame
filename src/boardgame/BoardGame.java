@@ -20,6 +20,7 @@ public class BoardGame extends JFrame implements Runnable {
     boolean aboutSelectStart = false;
     boolean aboutSelectHow = false;
     boolean aboutSelectBack = false;
+    boolean aboutSelectReset = false;
     sound menuClick = null;
     
     
@@ -42,29 +43,38 @@ public class BoardGame extends JFrame implements Runnable {
                     
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+165 && y < Window.getHeight2()/2+240){
-                            if(gameStart == false && howToPlay == false) {
+                            if(!gameStart  && !howToPlay ) {
                             menuClick = new sound("button3.wav");
                             gameStart = true;
                             allowPlace = true;
                             }
-                            if(gamePause && howToPlay == false) {
+                            if(gamePause && !howToPlay) {
                             menuClick = new sound("button3.wav");
                             gamePause = false;
                             }
                         }
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+25 && y < Window.getHeight2()/2+105){
-                            if(gameStart == false && howToPlay == false) {
+                            if(!gameStart && !howToPlay) {
                             menuClick = new sound("button3.wav");
                             howToPlay = true;
                             }
-                            if(gamePause && howToPlay == false) {
+                            if(gamePause && !howToPlay) {
                             menuClick = new sound("button3.wav");
                             gamePause = false;
                             howToPlay = true;
                             allowPlace = false;
                             }
                         }   
+                    if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
+                       y > Window.getHeight2()/2-105 && y < Window.getHeight2()/2-30){
+                            if(gamePause && !howToPlay) {
+                            menuClick = new sound("button3.wav");
+                            gamePause = false;
+                            allowPlace = true;
+                            reset();
+                            }
+                    }
                      if(x > Window.getWidth()+25 && x < Window.getWidth()+125 &&
                         y > Window.getHeight2()-50 && y < Window.getHeight2()-20){
                             if(howToPlay) {
@@ -74,9 +84,10 @@ public class BoardGame extends JFrame implements Runnable {
                             //System.out.println("test");
                             }
                         }
+
                     if(gameStart && allowPlace)   
                         notFirstClick++;
-                    if(gameStart && notFirstClick>=2 && allowPlace && gamePause == false) {
+                    if(gameStart && notFirstClick>=2 && allowPlace && !gamePause) {
                        Board.CheckValidPawnPlacement(x, y); 
                        Board.MouseSelect(x,y);
                        }
@@ -85,7 +96,7 @@ public class BoardGame extends JFrame implements Runnable {
                 if (e.BUTTON3 == e.getButton()) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
-                    if(gameStart && gamePause == false && allowPlace){
+                    if(gameStart && !gamePause && allowPlace){
                     Board.CheckValidWallPlacement(x, y);
                     
                     }
@@ -122,6 +133,13 @@ public class BoardGame extends JFrame implements Runnable {
           }
           else 
               aboutSelectHow = false;
+          //g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2-35, 250, 75);
+          if(xHover > Window.getWidth2()/2-130 && xHover < Window.getWidth2()/2+130 &&
+            yHover > Window.getHeight2()/2-105 && yHover < Window.getHeight2()/2-30) {
+            aboutSelectReset = true;  
+          }
+          else 
+              aboutSelectReset = false;
           if(xHover > Window.getWidth()+25 && xHover < Window.getWidth()+125 &&
              yHover > Window.getHeight2()-50 && yHover < Window.getHeight2()-20){
               
@@ -152,7 +170,7 @@ public class BoardGame extends JFrame implements Runnable {
                 }
                 
                 else if (e.VK_ESCAPE == e.getKeyCode()) {
-                      if(gamePause == false && howToPlay == false) {
+                      if(!gamePause && !howToPlay) {
                       gamePause = true;
                       notFirstClick = 0;
                       }
@@ -205,11 +223,11 @@ public class BoardGame extends JFrame implements Runnable {
             return;
         }
         
-        if(gameStart && howToPlay == false)
+        if(gameStart && !howToPlay) {
         Board.Draw(g);
-        
+        }
         //game start menu
-        if(gameStart == false && howToPlay == false) {
+        if(!gameStart && !howToPlay) {
         g.setColor(Color.red);
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
         g.drawString("Wallgame",Window.getWidth2()/2-55, Window.getHeight2()/2);
@@ -234,42 +252,49 @@ public class BoardGame extends JFrame implements Runnable {
         //game pause menu
         if(gamePause && gameStart) {
             g.setColor(Color.white);
-            g.fillRect(Window.getWidth2()/2-100, Window.getHeight2()/2-100, 300, 450);
+            g.fillRect(Window.getWidth2()/2-100, Window.getHeight2()/2-200, 300, 600);
         }
         if(gamePause && gameStart) {
         g.setColor(Color.red);
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
-        g.drawString("PAUSED",Window.getWidth2()/2-55, Window.getHeight2()/2);
+        g.drawString("PAUSED",Window.getWidth2()/2-55, Window.getHeight2()/2-100);
         g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
         g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
+        g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2-35, 250, 75);
         g.setColor(Color.white);
         g.drawString("BACK",Window.getWidth2()/2-25,Window.getHeight2()/2+290);
+        g.drawString("RESET",Window.getWidth2()/2-30,Window.getHeight2()/2+20);
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,30));
         g.drawString("HOW TO PLAY",Window.getWidth2()/2-50,Window.getHeight2()/2+150);
+        
         }
         
         
         //game start menu
-        if(gameStart == false && aboutSelectStart && howToPlay == false) {
+        if(!gameStart && aboutSelectStart && !howToPlay) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
         }
-        if(gameStart == false && aboutSelectHow && howToPlay == false) {
+        if(!gameStart && aboutSelectHow && !howToPlay) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
         }
-        if(gameStart == false && aboutSelectBack && howToPlay) {
+        if(!gameStart && aboutSelectBack && howToPlay) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
         }
         
         
         /////game paused menu
-        if(gamePause && gameStart && aboutSelectStart && howToPlay == false) {
+        if(gamePause && gameStart && aboutSelectReset && !howToPlay) {
+        g.setColor(Color.black);
+        g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2-35, 250, 75);
+        }
+        if(gamePause && gameStart && aboutSelectStart && !howToPlay) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
         }
-        if(gamePause && gameStart &&aboutSelectHow && howToPlay == false) {
+        if(gamePause && gameStart &&aboutSelectHow && !howToPlay) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
         }
