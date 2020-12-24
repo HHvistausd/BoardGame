@@ -18,7 +18,7 @@ import java.awt.Toolkit;
 public class Pawn extends Tile {
     
     public boolean MoveRight;
-    Image image;
+    
     Image pawnImage;
    
     

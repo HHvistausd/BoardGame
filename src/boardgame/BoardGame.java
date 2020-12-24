@@ -109,7 +109,6 @@ public class BoardGame extends JFrame implements Runnable {
 
     addMouseMotionListener(new MouseMotionAdapter() {
       public void mouseDragged(MouseEvent e) {
-
         repaint();
       }
     });
