@@ -22,7 +22,7 @@ public class BoardGame extends JFrame implements Runnable {
     boolean aboutSelectBack = false;
     boolean aboutSelectReset = false;
     sound menuClick = null;
-    
+    Image pawnImage;
     
     public static void main(String[] args) {
         
@@ -227,8 +227,12 @@ public class BoardGame extends JFrame implements Runnable {
         }
         //game start menu
         if(!gameStart && !howToPlay) {
+        pawnImage = Toolkit.getDefaultToolkit().getImage("./redHelm.png");
+        g.drawImage(pawnImage,Window.getWidth2()/2-100,Window.getHeight2()/2-35,null);
+        pawnImage = Toolkit.getDefaultToolkit().getImage("./blueHelm.png");
+        g.drawImage(pawnImage,Window.getWidth2()/2+170,Window.getHeight2()/2-35,null);
         g.setColor(Color.red);
-        g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
+        g.setFont(new Font("Georgia",Font.PLAIN,50));
         g.drawString("Wallgame",Window.getWidth2()/2-55, Window.getHeight2()/2);
         g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
         g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
@@ -240,6 +244,9 @@ public class BoardGame extends JFrame implements Runnable {
         if(howToPlay) {
 //           g.setColor(Color.white);
 //           g.fillPolygon(x, y, 4);
+           Image howPlayTop;
+           howPlayTop = Toolkit.getDefaultToolkit().getImage("./HowToPlay.png");
+           g.drawImage(howPlayTop,100,100,null);
            g.setColor(Color.red);
            g.fillRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
            g.setColor(Color.white);
