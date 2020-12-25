@@ -62,6 +62,7 @@ public class Player {
         Player.GetCurrentPlayer().selected = _selected;
     }
     
+    
     Player(Color _color)
     {
         color = _color;

@@ -11,6 +11,7 @@ public class Board {
     private static boolean invalidPlacement;
     private static boolean setupPhase = true;
     
+    
     public static void Reset() {
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
@@ -205,6 +206,7 @@ public class Board {
             return;
         
         boolean selected = false;
+        
         int ydelta = Window.getHeight2()/NUM_ROWS;
         int xdelta = Window.getWidth2()/NUM_COLUMNS;
         
@@ -215,7 +217,6 @@ public class Board {
            Player.GetRedPlayer().walls== 0 && Player.GetRedPlayer().pawns == 0) 
         {
             if(board[rowSelect][columnSelect] != null && board[rowSelect][columnSelect] != board[rowSelect][columnSelect].piPoint) {
-
                selected = true;
             }
         }
@@ -232,10 +233,11 @@ public class Board {
         }
         
         
-        if(selected) {
+        if(selected){
         System.out.println("successful");
-        Player.mouseValues(rowSelect, columnSelect, selected);
         }
+        
+        Player.mouseValues(rowSelect, columnSelect, selected);
         
                 
     }
@@ -256,7 +258,6 @@ public class Board {
             currentRow += rowDir;
             currentColumn+= columnDir;
             Board.ShiftPawnPiece(currentRow, currentColumn, selected);
-
             }
         }
 //        selected = false;
@@ -295,6 +296,7 @@ public class Board {
                 if (board[zrow][zcol] != null)
                     if (board[zrow][zcol].pPoint != null) {
                         board[zrow][zcol].pPoint.draw(g, zrow, zcol,xdelta, ydelta);
+                        
                     }
                     
             }
@@ -366,7 +368,15 @@ public class Board {
                 g.drawString("PLAY",Window.getWidth2()/2-fontSize,Window.getHeight()+63);
             }
         }
-        
+        if(Player.GetCurrentPlayer().selected){
+            int row = Player.GetCurrentPlayer().rowSelect;
+            int column = Player.GetCurrentPlayer().columnSelect;
+            g.setColor(Color.LIGHT_GRAY);
+            g.fillRect(Window.getX(column*xdelta-xdelta),Window.getY(row*ydelta),xdelta,ydelta);
+            g.fillRect(Window.getX(column*xdelta+xdelta),Window.getY(row*ydelta),xdelta,ydelta);
+            g.fillRect(Window.getX(column*xdelta),Window.getY(row*ydelta-ydelta),xdelta,ydelta);
+            g.fillRect(Window.getX(column*xdelta),Window.getY(row*ydelta+ydelta),xdelta,ydelta);
+        }
         ////////////////////////////////// Showing remaining walls and pawns
        
             g.setColor(Color.white);
@@ -386,7 +396,9 @@ public class Board {
             g.drawString("You can only place pieces on your own side!",Window.getWidth2()/2-200,Window.getHeight2()/2);
             }
 //            board[5][5] = new Tile(Color.GRAY);
-            
+//            g.setColor(Color.GREEN);
+//                    
+//            g.drawRect(500,200,50,50);
     }
     
     

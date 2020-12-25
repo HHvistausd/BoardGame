@@ -202,8 +202,8 @@ public class BoardGame extends JFrame implements Runnable {
         }
 //fill background
 //        Color darkred = new Color(170,0,0);
-
-        
+        Color orange = new Color(255,130,0);
+          
 
         g.setColor(Color.black);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
@@ -214,7 +214,7 @@ public class BoardGame extends JFrame implements Runnable {
         g.setColor(Color.white);
         g.fillPolygon(x, y, 4);
 // draw border
-        g.setColor(Color.red);
+        g.setColor(Color.black);
         g.drawPolyline(x, y, 5);
 
         if (animateFirstTime) {
@@ -230,20 +230,19 @@ public class BoardGame extends JFrame implements Runnable {
         pawnImage = Toolkit.getDefaultToolkit().getImage("./redHelm.png");
         g.drawImage(pawnImage,Window.getWidth2()/2-100,Window.getHeight2()/2-35,null);
         pawnImage = Toolkit.getDefaultToolkit().getImage("./blueHelm.png");
-        g.drawImage(pawnImage,Window.getWidth2()/2+170,Window.getHeight2()/2-35,null);
-        g.setColor(Color.red);
-        g.setFont(new Font("Georgia",Font.PLAIN,50));
+        g.drawImage(pawnImage,Window.getWidth2()/2+165,Window.getHeight2()/2-35,null);
+        g.setColor(orange);
+        g.setFont(new Font("Cambria",Font.PLAIN,50));
         g.drawString("Wallgame",Window.getWidth2()/2-55, Window.getHeight2()/2);
         g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
         g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
         g.setColor(Color.white);
+        g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
         g.drawString("START",Window.getWidth2()/2-30,Window.getHeight2()/2+290);
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,30));
         g.drawString("HOW TO PLAY",Window.getWidth2()/2-50,Window.getHeight2()/2+150);
         }
         if(howToPlay) {
-//           g.setColor(Color.white);
-//           g.fillPolygon(x, y, 4);
            Image howPlayTop;
            howPlayTop = Toolkit.getDefaultToolkit().getImage("./HowToPlay.png");
            g.drawImage(howPlayTop,100,100,null);
