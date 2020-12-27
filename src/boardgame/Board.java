@@ -211,11 +211,13 @@ public class Board {
         
         if (board[currentRow+ypl][currentColumn+xpl].pPoint != null) {
             board[currentRow+ypl][currentColumn+xpl] = null;
+            Player.SwitchTurn();
         }
         if (board[currentRow+ypl][currentColumn+xpl].piPoint != null) {
             board[currentRow+ypl][currentColumn+xpl] = null;
+            Player.SwitchTurn();
         }
-        Player.SwitchTurn();
+        
 
     }
     
