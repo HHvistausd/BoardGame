@@ -178,24 +178,45 @@ public class Board {
         if(Player.GetCurrentPlayer().rightCalled == true && board[currentRow][currentColumn-1] != null) {
             if(board[currentRow][currentColumn-1].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow][currentColumn-1]= null;
+            
+                   
         }
         else if(Player.GetCurrentPlayer().leftCalled == true && board[currentRow][currentColumn+1] != null) {
             if(board[currentRow][currentColumn+1].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow][currentColumn+1]= null;
+
         }
         else if(Player.GetCurrentPlayer().upCalled == true && board[currentRow+1][currentColumn] != null) {
             if(board[currentRow+1][currentColumn].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow+1][currentColumn] = null;
+
         }
         else if(Player.GetCurrentPlayer().downCalled == true && board[currentRow-1][currentColumn] != null){
             if(board[currentRow-1][currentColumn].getCurrentPlayer() == Player.GetCurrentPlayer())
             board[currentRow-1][currentColumn]= null;
+
         }
         
         if(Player.GetCurrentPlayer().walls == 0 && Player.GetCurrentPlayer().pawns == 0) {
         Player.SwitchTurn();
         }
         
+    }
+    
+    public static void performTurnAction (int currentRow,int currentColumn,boolean selected, int xpl, int ypl) {
+        
+        if (board[currentRow+ypl][currentColumn+xpl].jPoint != null) {
+            BoardGame.Win(Player.GetCurrentPlayer().getColor());
+        }
+        
+        if (board[currentRow+ypl][currentColumn+xpl].pPoint != null) {
+            board[currentRow+ypl][currentColumn+xpl] = null;
+        }
+        if (board[currentRow+ypl][currentColumn+xpl].piPoint != null) {
+            board[currentRow+ypl][currentColumn+xpl] = null;
+        }
+        Player.SwitchTurn();
+
     }
     
     public static void MouseSelect(int xpixel,int ypixel) {
@@ -258,6 +279,9 @@ public class Board {
             currentRow += rowDir;
             currentColumn+= columnDir;
             Board.ShiftPawnPiece(currentRow, currentColumn, selected);
+            }
+            else {
+                performTurnAction(currentRow, currentColumn, selected, columnDir, rowDir);     
             }
         }
 //        selected = false;

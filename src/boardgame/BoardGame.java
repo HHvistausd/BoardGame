@@ -19,6 +19,9 @@ public class BoardGame extends JFrame implements Runnable {
     boolean allowPlace = false;
     int notFirstClick = 0; //bug prevention
     boolean howToPlay;
+    static String winStatement;
+    static Color winColor;
+    static boolean win;
     static boolean howToPlayVid = false;
     boolean aboutSelectStart = false;
     boolean aboutSelectHow = false;
@@ -40,6 +43,8 @@ public class BoardGame extends JFrame implements Runnable {
 //        }
         
     }
+    
+    
 
     public BoardGame() {
             
@@ -320,9 +325,11 @@ public class BoardGame extends JFrame implements Runnable {
         g.drawRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
         }
         
-        
-        
-        
+        if (win) {
+            g.setColor(winColor);
+            g.drawString(winStatement,Window.getWidth2()/2-55, Window.getHeight2()/2);
+            
+        }
         
         
         
@@ -342,6 +349,18 @@ public class BoardGame extends JFrame implements Runnable {
                 Thread.sleep(miliseconds);
             } catch (InterruptedException e) {
             }
+        }
+    }
+    
+    
+    public static void Win(Color playercolor) {
+        win = true;
+        winColor = playercolor;
+        if (playercolor == Color.BLUE) {
+            winStatement = "Blue has won!";
+        }
+        if (playercolor == Color.RED) {
+            winStatement = "Red has won!";
         }
     }
     
@@ -384,5 +403,5 @@ public class BoardGame extends JFrame implements Runnable {
         }
         relaxer = null;
     }
-
 }
+
