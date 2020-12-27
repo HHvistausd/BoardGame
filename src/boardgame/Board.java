@@ -220,16 +220,16 @@ public class Board {
                selected = true;
             }
         }
-        
+            
         if(Player.GetCurrentPlayer() == Player.GetRedPlayer() && board[rowSelect][columnSelect].getColor() == Player.GetBluePlayer().getColor() 
             || board[rowSelect][columnSelect] == null) {
             selected = false;
-            return;
+           
         }
         if(Player.GetCurrentPlayer() == Player.GetBluePlayer() && board[rowSelect][columnSelect].getColor() == Player.GetRedPlayer().getColor()
             || board[rowSelect][columnSelect] == null) {
             selected = false;
-           return;
+           
         }
         
         

@@ -7,6 +7,8 @@ import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.sound.sampled.*;
+import java.awt.Desktop;
+import java.net.URI;
 
 public class BoardGame extends JFrame implements Runnable {
     boolean animateFirstTime = true;
@@ -17,6 +19,7 @@ public class BoardGame extends JFrame implements Runnable {
     boolean allowPlace = false;
     int notFirstClick = 0; //bug prevention
     boolean howToPlay;
+    static boolean howToPlayVid = false;
     boolean aboutSelectStart = false;
     boolean aboutSelectHow = false;
     boolean aboutSelectBack = false;
@@ -24,12 +27,18 @@ public class BoardGame extends JFrame implements Runnable {
     sound menuClick = null;
     Image pawnImage;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
         BoardGame frame = new BoardGame();
         frame.setSize(Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        
+//        if(howToPlayVid){
+//        Desktop d = Desktop.getDesktop();
+//        d.browse(new URI("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
+//        }
+        
     }
 
     public BoardGame() {
@@ -40,6 +49,7 @@ public class BoardGame extends JFrame implements Runnable {
                 if (e.BUTTON1 == e.getButton() ) {
                     int x = e.getX() - Window.getX(0);
                     int y = e.getY() - Window.getY(0);
+                    
                     
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+165 && y < Window.getHeight2()/2+240){
@@ -191,7 +201,7 @@ public class BoardGame extends JFrame implements Runnable {
     public void destroy() {
     }
 ////////////////////////////////////////////////////////////////////////////
-    public void paint(Graphics gOld) {
+    public void paint(Graphics gOld){
         if (image == null || Window.xsize != getSize().width || Window.ysize != getSize().height) {
             Window.xsize = getSize().width;
             Window.ysize = getSize().height;
@@ -204,7 +214,9 @@ public class BoardGame extends JFrame implements Runnable {
 //        Color darkred = new Color(170,0,0);
         Color orange = new Color(255,130,0);
           
-
+        
+        
+        
         g.setColor(Color.black);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 
@@ -243,9 +255,9 @@ public class BoardGame extends JFrame implements Runnable {
         g.drawString("HOW TO PLAY",Window.getWidth2()/2-50,Window.getHeight2()/2+150);
         }
         if(howToPlay) {
-           Image howPlayTop;
-           howPlayTop = Toolkit.getDefaultToolkit().getImage("./HowToPlay.png");
-           g.drawImage(howPlayTop,100,100,null);
+           Image howToPlay;
+           howToPlay = Toolkit.getDefaultToolkit().getImage("./HowToPlay.png");
+           g.drawImage(howToPlay,100,100,null);
            g.setColor(Color.red);
            g.fillRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
            g.setColor(Color.white);
