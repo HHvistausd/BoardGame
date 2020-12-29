@@ -10,8 +10,8 @@ public class Player {
     public static Player currentTurn;
     private static Player players[] = new Player[2];
     private Color color;    
-    public int pawns = 10;
-    public int walls = 20;
+    public int pawns = 13;
+    public int walls = 25;
     
     public int rowDir = 0;
     public int columnDir = 0;
@@ -118,6 +118,7 @@ public class Player {
         moveCalled = true;
         downCalled = true;
          }
+        
     }
 //    public void movePawn (int x, int y) {
 //        Board.AddPawnPiece(x, y);

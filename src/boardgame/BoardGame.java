@@ -15,19 +15,25 @@ public class BoardGame extends JFrame implements Runnable {
     Image image;
     Graphics2D g;
     boolean gameStart = false;
+    boolean presetStart = false;
     boolean gamePause = false;
     boolean allowPlace = false;
     int notFirstClick = 0; //bug prevention
+    int notFirstClick2 = 0;
     boolean howToPlay;
-    static String winStatement;
-    static Color winColor;
     static boolean win;
     static boolean howToPlayVid = false;
+    
     boolean aboutSelectStart = false;
     boolean aboutSelectHow = false;
     boolean aboutSelectBack = false;
     boolean aboutSelectReset = false;
+    boolean aboutSelectTurtle = false;
+    boolean aboutSelectHorse = false;
+    boolean aboutSelectCustom = false;
+    
     sound menuClick = null;
+    sound music = null;
     Image pawnImage;
     
     public static void main(String[] args) throws Exception {
@@ -56,11 +62,13 @@ public class BoardGame extends JFrame implements Runnable {
                     int y = e.getY() - Window.getY(0);
                     
                     
+                    
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+165 && y < Window.getHeight2()/2+240){
-                            if(!gameStart  && !howToPlay ) {
+                            if(!gameStart  && !howToPlay && !presetStart) {
                             menuClick = new sound("button3.wav");
-                            gameStart = true;
+//                            gameStart = true;
+                            presetStart = true;
                             allowPlace = true;
                             }
                             if(gamePause && !howToPlay) {
@@ -70,7 +78,7 @@ public class BoardGame extends JFrame implements Runnable {
                         }
                     if(x > Window.getWidth2()/2-130 && x < Window.getWidth2()/2+130 &&
                        y > Window.getHeight2()/2+25 && y < Window.getHeight2()/2+105){
-                            if(!gameStart && !howToPlay) {
+                            if(!gameStart && !howToPlay && !presetStart) {
                             menuClick = new sound("button3.wav");
                             howToPlay = true;
                             }
@@ -99,14 +107,52 @@ public class BoardGame extends JFrame implements Runnable {
                             //System.out.println("test");
                             }
                         }
-
-                    if(gameStart && allowPlace)   
+                     
+                     
+                     
+                     if(x > Window.getWidth2()-930 && x < Window.getWidth2()-725 &&
+                        y > Window.getHeight2()/2+20&& y < Window.getHeight2()/2+220&& notFirstClick>=1) {
+                         if(presetStart && !gameStart && !howToPlay) {
+                              menuClick = new sound("button3.wav");
+                              gameStart = true;
+                              presetStart = false;
+                              allowPlace = true;
+                              Board.presets(true, false, false);
+                            }
+                     }
+                     if(x > Window.getWidth2()-630 && x < Window.getWidth2()-425 &&
+                     y > Window.getHeight2()/2+20&& y < Window.getHeight2()/2+220&& notFirstClick>=1) {
+                         if(presetStart && !gameStart && !howToPlay) {
+                              menuClick = new sound("button3.wav");
+                              gameStart = true;
+                              presetStart = false;
+                              allowPlace = true;
+                              Board.presets(false, true, false);
+                            }
+                     }
+                     if(x > Window.getWidth2()-330 && x < Window.getWidth2()-125 &&
+                        y > Window.getHeight2()/2+20&& y < Window.getHeight2()/2+220 && notFirstClick>=1 ) {
+                            if(presetStart && !gameStart && !howToPlay) {
+                              menuClick = new sound("button3.wav");
+                              gameStart = true;
+                              presetStart = false;
+                              allowPlace = true;
+                              Board.presets(false, false, true);
+                            }
+                         
+                     }
+                     if(!gameStart && allowPlace && presetStart)   
                         notFirstClick++;
-                    if(gameStart && notFirstClick>=2 && allowPlace && !gamePause) {
+                        
+                     else if(gameStart && allowPlace)   
+                        notFirstClick2++;
+                    
+                    if(gameStart && notFirstClick2>=2 && allowPlace && !gamePause) {
                        Board.CheckValidPawnPlacement(x, y); 
                        Board.MouseSelect(x,y);
                        }
                       
+            
                 }
                 if (e.BUTTON3 == e.getButton()) {
                     int x = e.getX() - Window.getX(0);
@@ -161,7 +207,35 @@ public class BoardGame extends JFrame implements Runnable {
           }
               else 
               aboutSelectBack = false;
-          
+//          g.fillRect(Window.getWidth2()-870, Window.getHeight2()/2+100, 200, 200);
+//        g.fillRect(Window.getWidth2()-570, Window.getHeight2()/2+100, 200, 200);
+//        g.fillRect(Window.getWidth2()-270, Window.getHeight2()/2+100, 200, 200);
+        if(xHover > Window.getWidth2()-930 && xHover < Window.getWidth2()-725 &&
+           yHover > Window.getHeight2()/2+20&& yHover < Window.getHeight2()/2+220) {
+            aboutSelectTurtle = true;
+            
+        }
+        else
+            aboutSelectTurtle = false;
+        
+        if(xHover > Window.getWidth2()-630 && xHover < Window.getWidth2()-425 &&
+           yHover > Window.getHeight2()/2+20&& yHover < Window.getHeight2()/2+220) {
+            aboutSelectHorse = true;
+            
+        }
+        else
+            aboutSelectHorse = false;
+        
+        if(xHover > Window.getWidth2()-330 && xHover < Window.getWidth2()-125 &&
+           yHover > Window.getHeight2()/2+20&& yHover < Window.getHeight2()/2+220) {
+            aboutSelectCustom = true;
+        }
+        else
+            aboutSelectCustom = false;
+        
+        
+        
+
         repaint();
       }
     });
@@ -169,9 +243,11 @@ public class BoardGame extends JFrame implements Runnable {
         addKeyListener(new KeyAdapter() {
 
             public void keyPressed(KeyEvent e) {
+                
                 if (e.VK_UP == e.getKeyCode() || e.VK_W == e.getKeyCode()) {  
                     Player.GetCurrentPlayer().moveUp();
                     Board.MovePawnPiece();
+                    
                 } else if (e.VK_DOWN == e.getKeyCode() || e.VK_S == e.getKeyCode()) {
                     Player.GetCurrentPlayer().moveDown();
                     Board.MovePawnPiece();
@@ -218,10 +294,7 @@ public class BoardGame extends JFrame implements Runnable {
 //fill background
 //        Color darkred = new Color(170,0,0);
         Color orange = new Color(255,130,0);
-          
-        
-        
-        
+         
         g.setColor(Color.black);
         g.fillRect(0, 0, Window.xsize, Window.ysize);
 
@@ -243,7 +316,7 @@ public class BoardGame extends JFrame implements Runnable {
         Board.Draw(g);
         }
         //game start menu
-        if(!gameStart && !howToPlay) {
+        if(!gameStart && !howToPlay && !presetStart) {
         pawnImage = Toolkit.getDefaultToolkit().getImage("./redHelm.png");
         g.drawImage(pawnImage,Window.getWidth2()/2-100,Window.getHeight2()/2-35,null);
         pawnImage = Toolkit.getDefaultToolkit().getImage("./blueHelm.png");
@@ -277,7 +350,7 @@ public class BoardGame extends JFrame implements Runnable {
             g.fillRect(Window.getWidth2()/2-100, Window.getHeight2()/2-200, 300, 600);
         }
         if(gamePause && gameStart) {
-        g.setColor(Color.red);
+        g.setColor(orange);
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,50));
         g.drawString("PAUSED",Window.getWidth2()/2-55, Window.getHeight2()/2-100);
         g.fillRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
@@ -288,16 +361,28 @@ public class BoardGame extends JFrame implements Runnable {
         g.drawString("RESET",Window.getWidth2()/2-30,Window.getHeight2()/2+20);
         g.setFont(new Font("Franklin Gothic",Font.PLAIN,30));
         g.drawString("HOW TO PLAY",Window.getWidth2()/2-50,Window.getHeight2()/2+150);
-        
         }
-        
-        
-        //game start menu
-        if(!gameStart && aboutSelectStart && !howToPlay) {
+        //preset menu
+        if(presetStart) {
+        g.setColor(Color.RED);
+        g.setFont(new Font("Times New Roman",Font.PLAIN,50));
+        g.drawString("PRESETS",Window.getWidth2()/2-55, Window.getHeight2()/4); 
+        g.setColor(orange);
+        g.fillRect(Window.getWidth2()-870, Window.getHeight2()/2+100, 200, 200);
+        g.fillRect(Window.getWidth2()-570, Window.getHeight2()/2+100, 200, 200);
+        g.fillRect(Window.getWidth2()-270, Window.getHeight2()/2+100, 200, 200);
+        g.setFont(new Font("Times New Roman",Font.PLAIN,30));
+        g.drawString("Turtle",Window.getWidth2()-800, Window.getHeight2()/2+350); 
+        g.drawString("Horse",Window.getWidth2()-500, Window.getHeight2()/2+350); 
+        g.drawString("Custom",Window.getWidth2()-215, Window.getHeight2()/2+350); 
+        g.drawString("(Recommended)",Window.getWidth2()-260, Window.getHeight2()/2+375); 
+        }
+        //game start menu outlines
+        if(!gameStart && aboutSelectStart && !howToPlay && !presetStart) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+235, 250, 75);
         }
-        if(!gameStart && aboutSelectHow && !howToPlay) {
+        if(!gameStart && aboutSelectHow && !howToPlay && !presetStart) {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth2()/2-75, Window.getHeight2()/2+100, 250, 75);
         }
@@ -305,7 +390,21 @@ public class BoardGame extends JFrame implements Runnable {
         g.setColor(Color.black);
         g.drawRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
         }
-        
+        //preset menu outlines
+//        g.fillRect(Window.getWidth2()-570, Window.getHeight2()/2+100, 200, 200);
+        if(!gameStart && aboutSelectTurtle && !howToPlay && presetStart) {
+        g.setColor(Color.black);
+        g.drawRect(Window.getWidth2()-870, Window.getHeight2()/2+100, 200, 200);
+        }
+         if(!gameStart && aboutSelectHorse && !howToPlay && presetStart) {
+        g.setColor(Color.black);
+        g.drawRect(Window.getWidth2()-570, Window.getHeight2()/2+100, 200, 200);
+        }
+        if(!gameStart && aboutSelectCustom && !howToPlay && presetStart) {
+        g.setColor(Color.black);
+        g.drawRect(Window.getWidth2()-270, Window.getHeight2()/2+100, 200, 200);
+        }
+       
         
         /////game paused menu
         if(gamePause && gameStart && aboutSelectReset && !howToPlay) {
@@ -325,11 +424,10 @@ public class BoardGame extends JFrame implements Runnable {
         g.drawRect(Window.getWidth()+75, Window.getHeight2()+25, 100, 25);
         }
         
-        if (win) {
-            g.setColor(winColor);
-            g.drawString(winStatement,Window.getWidth2()/2-55, Window.getHeight2()/2);
+        
             
-        }
+            
+        
         
         
         
@@ -353,17 +451,6 @@ public class BoardGame extends JFrame implements Runnable {
     }
     
     
-    public static void Win(Color playercolor) {
-        win = true;
-        winColor = playercolor;
-        if (playercolor == Color.BLUE) {
-            winStatement = "Blue has won!";
-        }
-        if (playercolor == Color.RED) {
-            winStatement = "Red has won!";
-        }
-    }
-    
 /////////////////////////////////////////////////////////////////////////
     public void reset() {
         Player.Reset();
@@ -380,6 +467,7 @@ public class BoardGame extends JFrame implements Runnable {
             }
             
 //            if (welcome.donePlaying && !welcome.stopPlaying)     
+            
             
             
             reset();

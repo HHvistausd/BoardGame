@@ -13,6 +13,7 @@ import java.awt.Toolkit;
     
     Image wallImage;
     Color lCol = super.color;
+//    int wallValue = super.wallValue;
     
     Piece () {
         super(Player.GetCurrentPlayer().getColor());
@@ -25,10 +26,16 @@ import java.awt.Toolkit;
         if(lCol == Color.red) {
         wallImage = Toolkit.getDefaultToolkit().getImage("./Brick_Tile_Red.png");
         g.drawImage(wallImage,Window.getX(column*xdelta),Window.getY(row*ydelta),null);
+        g.setColor(Color.black);
+        g.setFont(new Font("Franklin Gothic",Font.PLAIN,30));
+        g.drawString(""+super.wallValue,Window.getX(column*xdelta)+13,Window.getY(row*ydelta)+27);
         }
         if(lCol == Color.blue) {
         wallImage = Toolkit.getDefaultToolkit().getImage("./Brick_Tile_Blue.png");
         g.drawImage(wallImage,Window.getX(column*xdelta),Window.getY(row*ydelta),null);
+        g.setColor(Color.black);
+        g.setFont(new Font("Franklin Gothic",Font.PLAIN,30));
+        g.drawString(""+super.wallValue,Window.getX(column*xdelta)+13,Window.getY(row*ydelta)+27);
         }
     }
 }
