@@ -395,7 +395,7 @@ public class BoardGame extends JFrame implements Runnable {
         g.drawString("Turtle",Window.getWidth2()-800, Window.getHeight2()/2+350); 
         g.drawString("Horse",Window.getWidth2()-500, Window.getHeight2()/2+350); 
         g.drawString("Custom",Window.getWidth2()-215, Window.getHeight2()/2+350); 
-        g.drawString("(Recommended)",Window.getWidth2()-260, Window.getHeight2()/2+375); 
+        
         }
         //game start menu outlines
         if(!gameStart && aboutSelectStart && !howToPlay && !presetStart) {
