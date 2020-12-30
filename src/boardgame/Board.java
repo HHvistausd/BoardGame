@@ -182,7 +182,7 @@ public class Board {
                     board[xp[i]][y2p[e]].pPoint = pawn2;
                 }
             }
-            Player.SwitchTurn();
+            
 
         }
         if(custom) {
@@ -403,10 +403,8 @@ public class Board {
             else if(board[currentRow+rowDir][currentColumn+columnDir] == board[currentRow+rowDir][currentColumn+columnDir].pPoint && 
                     board[currentRow+rowDir][currentColumn+columnDir].getColor() != Player.GetCurrentPlayer().getColor()){
                         board[currentRow+rowDir][currentColumn+columnDir] = null;
-//                        currentRow += rowDir;
-//                        currentColumn+= columnDir;
-                        Player.GetCurrentPlayer().walls+=2;
-                        Player.GetCurrentPlayer().pawns+=1;
+                        currentRow += rowDir;
+                        currentColumn+= columnDir;
                         setupPhase = false;
                         Board.ShiftPawnPiece(currentRow, currentColumn, selected);
                         int attack = (int)(Math.random()*4+1);
@@ -688,10 +686,6 @@ public class Board {
             g.setColor(Color.white);
               g.setFont(new Font("TIMES NEW ROMAN",Font.PLAIN,30));
               g.drawString("[esc] to pause",Window.getWidth2()/2-30,Window.getHeight2()+110);  
-//            board[5][5] = new Tile(Color.GRAY);
-//            g.setColor(Color.GREEN);
-//                    
-//            g.drawRect(500,200,50,50);
     }
     
     
