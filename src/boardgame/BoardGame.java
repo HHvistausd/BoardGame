@@ -236,7 +236,6 @@ public class BoardGame extends JFrame implements Runnable {
         if(xHover > Window.getWidth2()-630 && xHover < Window.getWidth2()-425 &&
            yHover > Window.getHeight2()/2+20&& yHover < Window.getHeight2()/2+220) {
             aboutSelectHorse = true;
-            
         }
         else
             aboutSelectHorse = false;

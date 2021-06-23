@@ -18,36 +18,42 @@ public class Board {
     
     public static void Reset() {
         if(turtle) {
-        for (int zrow=0;zrow<NUM_ROWS;zrow++)
-            for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
-                board[zrow][zcol] = null;  
-                Player.GetBluePlayer().pawns = 0;
-                Player.GetBluePlayer().walls = 0;
-                Player.GetRedPlayer().pawns = 0;
-                Player.GetRedPlayer().walls = 0;
+//        for (int zrow=0;zrow<NUM_ROWS;zrow++)
+//            for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
+//                board[zrow][zcol] = null;  
+//                Player.GetBluePlayer().pawns = 0;
+//                Player.GetBluePlayer().walls = 0;
+//                Player.GetRedPlayer().pawns = 0;
+//                Player.GetRedPlayer().walls = 0;
                 Board.presets(true, false, false);
+                
         }
         else if(horse) {
-        for (int zrow=0;zrow<NUM_ROWS;zrow++)
-            for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
-                board[zrow][zcol] = null;  
-                Player.GetBluePlayer().pawns = 0;
-                Player.GetBluePlayer().walls = 0;
-                Player.GetRedPlayer().pawns = 0;
-                Player.GetRedPlayer().walls = 0;
+//        for (int zrow=0;zrow<NUM_ROWS;zrow++)
+//            for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
+//                board[zrow][zcol] = null;  
+//                Player.GetBluePlayer().pawns = 0;
+//                Player.GetBluePlayer().walls = 0;
+//                Player.GetRedPlayer().pawns = 0;
+//                Player.GetRedPlayer().walls = 0;
                 Board.presets(false, true, false);
+                
         }
         else if(custom) {
         for (int zrow=0;zrow<NUM_ROWS;zrow++)
             for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
                 board[zrow][zcol] = null;  
-        }
-        
-        
         setUpJewels();
         invalidPlacement = false;
         setupPhase = true;
         win = false;
+        }
+        
+        
+//        setUpJewels();
+//        invalidPlacement = false;
+//        setupPhase = true;
+//        win = false;
     }
     
     public static void presets(boolean _turtle, boolean _horse, boolean _custom) {
@@ -58,11 +64,25 @@ public class Board {
        
        
         if(turtle) {
+            if(Player.GetCurrentPlayer() == Player.GetBluePlayer()){
+                Player.SwitchTurn();
+            }
             setupPhase = false;
+            for (int zrow=0;zrow<NUM_ROWS;zrow++)
+            for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
+                board[zrow][zcol] = null;  
+            
             Player.GetBluePlayer().pawns = 0;
             Player.GetBluePlayer().walls = 0;
             Player.GetRedPlayer().pawns = 0;
             Player.GetRedPlayer().walls = 0;
+            
+            
+            setUpJewels();
+            invalidPlacement = false;
+            setupPhase = true;
+            win = false;
+            
             
             int y[] = {0,1,2,0,1,2,3,0,1,2,3,1,2,3,0,1,2,3,0,1,2,3,0,1,2};
             int x[] = {9,9,9,10,10,10,10,11,11,11,11,12,12,12,13,13,13,13,14,14,14,14,15,15,15};
@@ -105,7 +125,9 @@ public class Board {
             }
             i = 0;
             e = 0;
+            if(Player.GetCurrentPlayer()==Player.GetRedPlayer()){
             Player.SwitchTurn();
+            }
             //blue player
             while(i<x2.length && e < y2.length) {
                 Piece piece2 = new Piece();
@@ -133,11 +155,24 @@ public class Board {
             e = 0;
         }
         if(horse) {
+            if(Player.GetCurrentPlayer() == Player.GetBluePlayer()){
+                Player.SwitchTurn();
+            }
             setupPhase = false;
+            for (int zrow=0;zrow<NUM_ROWS;zrow++)
+            for (int zcol=0;zcol<NUM_COLUMNS;zcol++)
+                board[zrow][zcol] = null;
+            
             Player.GetBluePlayer().pawns = 0;
             Player.GetBluePlayer().walls = 0;
             Player.GetRedPlayer().pawns = 0;
             Player.GetRedPlayer().walls = 0;
+            
+            
+            setUpJewels();
+            invalidPlacement = false;
+            setupPhase = true;
+            win = false;
             
             int y[] = {6};
             int x[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
@@ -163,8 +198,10 @@ public class Board {
                     board[xp[i]][yp[e]].pPoint = pawn;
                 }
             }
-            
-           Player.SwitchTurn();
+           if(Player.GetCurrentPlayer()==Player.GetRedPlayer()){
+            Player.SwitchTurn();
+            } 
+           
             
             for(int i = 0;i<x.length;i++) {
                 for(int e = 0;e<y2.length;e++) {
@@ -622,7 +659,8 @@ public class Board {
 //            int xpixel =  column*xdelta;
 //            int ypixel = row*ydelta;
             
-            g.setColor(Color.LIGHT_GRAY);
+            Color lightred = new Color(255,108,108);
+            g.setColor(lightred);
             if(board[row][column-1] == null){
             g.fillRect(Window.getX(column*xdelta-xdelta),Window.getY(row*ydelta),xdelta,ydelta);
             }

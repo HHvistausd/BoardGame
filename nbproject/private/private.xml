@@ -13,21 +13,18 @@
             <url>src/boardgame/Board.java</url>
             <bookmark id="2">
                 <name/>
-                <line>249</line>
+                <line>251</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Pawn.java</file>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Window.java</file>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Jewel.java</file>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Board.java</file>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Player.java</file>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Piece.java</file>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/BoardGame.java</file>
-            <file>file:/C:/Users/hikar/Desktop/Project/BoardGame/src/boardgame/Tile.java</file>
+            <file>file:/C:/Users/hikar/Desktop/NetBeansProjects/BoardGame/BoardGame/src/boardgame/Board.java</file>
+            <file>file:/C:/Users/hikar/Desktop/NetBeansProjects/BoardGame/BoardGame/src/boardgame/Jewel.java</file>
+            <file>file:/C:/Users/hikar/Desktop/NetBeansProjects/BoardGame/BoardGame/src/boardgame/Window.java</file>
+            <file>file:/C:/Users/hikar/Desktop/NetBeansProjects/BoardGame/BoardGame/src/boardgame/BoardGame.java</file>
+            <file>file:/C:/Users/hikar/Desktop/NetBeansProjects/BoardGame/BoardGame/src/boardgame/sound.java</file>
         </group>
     </open-files>
 </project-private>
